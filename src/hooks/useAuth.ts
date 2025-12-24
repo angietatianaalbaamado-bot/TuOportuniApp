@@ -1,32 +1,38 @@
-import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { User } from "../models/User";
-import { loginService } from "../services/auth.service";
+import { useEffect, useState } from 'react';
+import { getData, setData, removeData } from '../services/storageService';
+import { loginService } from '../services/auth.service';
 
-export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
+export const useAuth = () => {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadUser = async () => {
-      const storedUser = await AsyncStorage.getItem("user");
-      if (storedUser) setUser(JSON.parse(storedUser));
-    };
     loadUser();
   }, []);
 
-  const login = async (email: string, password: string) => {
-    setLoading(true);
-    const data = await loginService(email, password);
-    setUser(data);
-    await AsyncStorage.setItem("user", JSON.stringify(data));
+  const loadUser = async () => {
+    const storedUser = await getData('user');
+    if (storedUser) {
+      setUser(storedUser);
+    }
     setLoading(false);
   };
 
-  const logout = async () => {
-    setUser(null);
-    await AsyncStorage.removeItem("user");
+  const login = async (email: string, password: string) => {
+    const userData = await loginService(email, password);
+    await setData('user', userData);
+    setUser(userData);
   };
 
-  return { user, login, logout, loading };
-}
+  const logout = async () => {
+    await removeData('user');
+    setUser(null);
+  };
+
+  return {
+    user,
+    loading,
+    login,
+    logout,
+  };
+};

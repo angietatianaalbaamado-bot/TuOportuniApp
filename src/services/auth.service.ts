@@ -1,17 +1,26 @@
-import { User } from "../models/User";
-
-// Simula login por ahora
-export const loginService = async (
-  email: string,
-  password: string
-): Promise<User> => {
-  if (email && password) {
-    return {
-      id: "1",
-      nombre: "Angie",
-      email,
-      rol: "candidato",
-    };
+export const loginService = async (email, password) => {
+  if (!email || !password) {
+    throw new Error('Datos incompletos');
   }
-  throw new Error("Credenciales inválidas");
+
+  // Login simulado
+  return {
+    id: 1,
+    name: 'Angie Alba',
+    email,
+    token: 'fake-token-123',
+  };
+};
+export const registerService = async (name, email, password) => {
+  if (!name || !email || !password) {
+    throw new Error('Datos incompletos');
+  }
+
+  // Registro simulado
+  return {
+    id: 2,
+    name,
+    email,
+    token: 'fake-token-456',
+  };
 };
