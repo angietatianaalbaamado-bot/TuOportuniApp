@@ -12,9 +12,7 @@ export const useAuth = () => {
 
   const loadUser = async () => {
     const storedUser = await getData('user');
-    if (storedUser) {
-      setUser(storedUser);
-    }
+    if (storedUser) setUser(storedUser);
     setLoading(false);
   };
 
