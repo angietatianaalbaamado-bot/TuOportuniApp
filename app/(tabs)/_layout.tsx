@@ -13,7 +13,6 @@ export default function TabsLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="profile"
         options={{
@@ -23,16 +22,17 @@ export default function TabsLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="settings"
         options={{
-          title: 'Configuración',
+          title: 'Configuracion',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="settings" size={size} color={color} />
           ),
         }}
       />
+      <Tabs.Screen name="vacante" options={{ href: null }} />
+      <Tabs.Screen name="postulaciones" options={{ href: null }} />
     </Tabs>
   );
 }

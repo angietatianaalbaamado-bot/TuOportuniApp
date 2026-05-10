@@ -1,43 +1,39 @@
 {
   "expo": {
-    "name": "TuOportuniAppMobileNuevo",
+    "name": "TuOportuniApp",
     "slug": "TuOportuniAppMobileNuevo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "tuoportuniappmobilenuevo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-
     "ios": {
       "supportsTablet": true
     },
-
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE"
+        "foregroundImage": "./assets/images/logo.png",
+        "backgroundColor": "#1e3a5f"
       },
       "edgeToEdgeEnabled": true
     },
-
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/logo.png"
     },
-
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/logo.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#1e3a5f"
         }
       ]
     ],
-
     "experiments": {
       "typedRoutes": true
     }
