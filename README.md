@@ -1,263 +1,178 @@
 # TuOportuniApp 📱💼
 
-## 📌 Descripción general
+Aplicación móvil desarrollada para optimizar y modernizar los procesos de búsqueda de empleo y selección de personal en Colombia. Conecta directamente a candidatos y empresas, permitiendo gestionar vacantes, postulaciones, entrevistas y comunicación en tiempo real.
 
-**TuOportuniApp** es una aplicación móvil desarrollada para optimizar y modernizar los procesos de búsqueda de empleo y selección de personal en Colombia. La plataforma conecta de manera directa a candidatos y empresas, permitiendo gestionar vacantes, postulaciones, entrevistas y comunicación en tiempo real desde un solo lugar.
-
-El proyecto surge como respuesta a problemáticas frecuentes del mercado laboral, tales como vacantes desactualizadas, procesos de selección lentos, baja comunicación entre reclutadores y aspirantes, y falta de transparencia en la información publicada.
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Platform](https://img.shields.io/badge/platform-Android-green)
+![License](https://img.shields.io/badge/license-Académico-orange)
 
 ---
 
-## 🎯 Objetivo del proyecto
+## 📸 Capturas de pantalla
+
+| Bienvenida | Inicio | Perfil |
+|---|---|---|
+| Pantalla de bienvenida con logo | Lista de vacantes con búsqueda | Perfil del candidato |
+
+---
+
+## 🎯 Objetivo
 
 Desarrollar una plataforma móvil eficiente, intuitiva y segura que facilite:
 
-* A los **candidatos**, encontrar oportunidades laborales reales y postularse fácilmente.
-* A las **empresas**, gestionar procesos de selección de forma ágil y organizada.
-* A los **administradores**, supervisar y controlar la información del sistema.
+- A los **candidatos**: encontrar oportunidades laborales reales y postularse fácilmente.
+- A las **empresas**: gestionar procesos de selección de forma ágil y organizada.
+- A los **administradores**: supervisar y controlar la información del sistema.
 
 ---
 
-## 👥 Público objetivo
-
-* Personas en búsqueda activa de empleo.
-* Empresas pequeñas y medianas sin sistemas ATS.
-* Reclutadores independientes.
-* Administradores del sistema.
-
----
-
-## 🚀 Funcionalidades del sistema
+## 🚀 Funcionalidades
 
 ### 👤 Candidatos
-
-* Registro e inicio de sesión.
-* Creación y edición de perfil profesional.
-* Carga de hoja de vida en formato PDF.
-* Búsqueda de vacantes por filtros (ubicación, área, tipo de contrato).
-* Visualización detallada de vacantes.
-* Postulación a ofertas laborales.
-* Chat directo con reclutadores.
-* Agenda de entrevistas.
-* Notificaciones en tiempo real.
+- Registro e inicio de sesión
+- Creación y edición de perfil profesional
+- Carga de hoja de vida en formato PDF
+- Búsqueda de vacantes por filtros (ubicación, tipo de contrato)
+- Postulación a ofertas laborales
+- Chat directo con reclutadores
+- Agenda de entrevistas
+- Notificaciones en tiempo real
 
 ### 🏢 Empresas
-
-* Registro e inicio de sesión empresarial.
-* Creación y gestión de vacantes.
-* Visualización de postulaciones recibidas.
-* Comunicación directa con candidatos.
-* Programación de entrevistas.
-* Panel con métricas básicas.
-
-### 🛠 Administradores
-
-* Gestión de usuarios.
-* Supervisión de vacantes.
-* Verificación de empresas.
-* Generación de reportes.
-* Auditoría del sistema.
+- Registro e inicio de sesión empresarial
+- Creación y gestión de vacantes
+- Visualización de postulaciones recibidas
+- Comunicación directa con candidatos
+- Programación de entrevistas
 
 ---
 
-## 🧱 Arquitectura del sistema
+## 🧱 Arquitectura
 
-El sistema está diseñado bajo una arquitectura moderna y escalable:
-
-* **Frontend móvil:** React Native + Expo
-* **Backend:** Node.js con NestJS
-* **Base de datos:** PostgreSQL
-* **Autenticación:** JWT
-* **Notificaciones:** Firebase Cloud Messaging
-* **Almacenamiento de archivos:** AWS S3 (o servicio equivalente)
-* **Pruebas:** Jest
-* **Despliegue:** Render / Railway / Vercel / Expo Publish
-
----
-
-## 🗂 Entidades del sistema (Modelo de datos)
-
-### 👤 Usuario
-
-* id_usuario (PK)
-* nombre
-* apellido
-* correo
-* contraseña
-* rol (candidato, empresa, administrador)
-* estado
-* fecha_creación
-
-### 👨‍💼 PerfilCandidato
-
-* id_perfil (PK)
-* id_usuario (FK)
-* profesión
-* experiencia
-* habilidades
-* hoja_vida_url
-
-### 🏢 Empresa
-
-* id_empresa (PK)
-* nombre_empresa
-* correo
-* descripción
-* ubicación
-* estado_verificación
-
-### 📄 Vacante
-
-* id_vacante (PK)
-* id_empresa (FK)
-* título
-* descripción
-* requisitos
-* salario
-* tipo_contrato
-* ubicación
-* fecha_publicación
-* estado
-
-### 📨 Postulación
-
-* id_postulación (PK)
-* id_vacante (FK)
-* id_usuario (FK)
-* fecha_postulación
-* estado
-
-### 💬 Chat
-
-* id_chat (PK)
-* id_empresa (FK)
-* id_usuario (FK)
-
-### ✉ Mensaje
-
-* id_mensaje (PK)
-* id_chat (FK)
-* contenido
-* fecha_envío
-* emisor
-
-### 📅 Entrevista
-
-* id_entrevista (PK)
-* id_postulación (FK)
-* fecha
-* hora
-* tipo (virtual / presencial)
-* enlace
-
-### 🔔 Notificación
-
-* id_notificación (PK)
-* id_usuario (FK)
-* mensaje
-* leída
-* fecha
+```
+TuOportuniApp/
+├── TuOportuniAppMobileNuevo/     # Frontend
+│   ├── app/
+│   │   ├── (auth)/               # Pantallas de autenticación
+│   │   ├── (drawer)/             # Pantallas principales
+│   │   └── _layout.tsx           # Layout raíz
+│   └── src/
+│       └── services/             # Servicios API
+└── TuOportuniAppBackend/         # Backend
+    └── server/
+        ├── routes/               # Rutas API
+        ├── middleware/           # Middlewares
+        └── db.js                 # Conexión PostgreSQL
+```
 
 ---
 
-## ⭐ Valor agregado
+## 🛠 Tecnologías
 
-* Vacantes verificadas.
-* Comunicación directa sin intermediarios.
-* Entrevistas dentro de la aplicación.
-* Procesos 100% digitales.
-* Información actualizada en tiempo real.
-
----
-
-## 📌 Tecnologías utilizadas
-
-* React Native
-* Expo
-* TypeScript
-* Node.js
-* NestJS
-* PostgreSQL
-* Firebase
-* Git y GitHub
+| Frontend | Backend | Base de datos |
+|---|---|---|
+| React Native | Node.js | PostgreSQL |
+| Expo | Express.js | |
+| TypeScript | JWT Auth | |
+| Expo Router | Bcrypt | |
 
 ---
-⚙️ Instalación y ejecución
 
-Clonar el repositorio:
+## ⚙️ Instalación
 
-git clone https://github.com/angietatianaalbaamado-bot/TuOportuniApp.git
+### Requisitos previos
+- Node.js v18+
+- PostgreSQL
+- Expo Go (en el celular)
 
-Instalar dependencias:
+### Backend
 
+```bash
+cd TuOportuniAppBackend
 npm install
+```
 
-Ejecutar el proyecto:
+Crea el archivo `.env`:
+
+```env
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASSWORD=tu_password
+DB_NAME=tuoportuniapp
+DB_PORT=5432
+PORT=3000
+JWT_SECRET=tu_secret
+```
+
+Ejecuta el backend:
+
+```bash
+npm run dev
+```
+
+### Frontend
+
+```bash
+cd TuOportuniAppMobileNuevo
+npm install
+```
+
+Crea el archivo `.env`:
+
+```env
+EXPO_PUBLIC_API_URL=http://TU_IP:3000
+EXPO_PUBLIC_APP_NAME=TuOportuniApp
+```
+
+Ejecuta el frontend:
+
+```bash
+npx expo start
+```
+
+---
+
+## 📡 API Endpoints
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| POST | `/api/auth/registro` | Registro de usuario |
+| POST | `/api/auth/login` | Inicio de sesión |
+| GET | `/api/vacantes` | Listar vacantes |
+| POST | `/api/vacantes` | Crear vacante |
+| POST | `/api/postulaciones` | Postularse a vacante |
+| GET | `/api/postulaciones/mis-postulaciones` | Ver mis postulaciones |
+| POST | `/api/chats` | Crear chat |
+| GET | `/api/chats/:id/mensajes` | Ver mensajes |
+| POST | `/api/chats/:id/mensajes` | Enviar mensaje |
+| GET | `/api/notificaciones` | Ver notificaciones |
+| POST | `/api/entrevistas` | Programar entrevista |
+
+---
+
+## 🗂 Modelo de datos
+
+- **Usuario**: id, nombre, apellido, correo, contraseña, rol, estado
+- **PerfilCandidato**: id, id_usuario, profesión, experiencia, habilidades, hoja_vida_url
+- **Empresa**: id, nombre, correo, descripción, ubicación, estado_verificación
+- **Vacante**: id, id_empresa, título, descripción, requisitos, sueldo, tipo_contrato, ubicación
+- **Postulación**: id, id_vacante, id_usuario, fecha, estado
+- **Chat**: id, id_empresa, id_usuario
+- **Mensaje**: id, id_chat, contenido, fecha, emisor
+- **Entrevista**: id, id_postulacion, fecha, hora, tipo, enlace
+- **Notificación**: id, id_usuario, mensaje, leída, fecha
+
+---
 
 ## 👩‍💻 Autora
 
 **Angie Tatiana Alba Amado**
 Tecnóloga en Análisis y Desarrollo de Software – SENA
 
+[![GitHub](https://img.shields.io/badge/GitHub-angietatianaalbaamado--bot-black?logo=github)](https://github.com/angietatianaalbaamado-bot)
+
 ---
 
 ## 📄 Licencia
 
 Este proyecto es de carácter académico y educativo.
-
-
-
-
-
-
-
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
