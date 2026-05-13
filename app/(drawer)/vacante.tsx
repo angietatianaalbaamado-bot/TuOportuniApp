@@ -8,6 +8,7 @@ const API_URL = process.env.EXPO_PUBLIC_API_URL;
 export default function DetalleVacante() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
+  console.log('ID vacante recibido:', id, typeof id);
   const [vacante, setVacante] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [postulando, setPostulando] = useState(false);

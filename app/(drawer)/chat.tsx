@@ -1,151 +1,123 @@
-import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { useEffect, useState, useRef } from 'react';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getData } from '../../src/services/storageService';
+
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
-export default function DetalleVacante() {
-  const { id } = useLocalSearchParams();
+export default function Chat() {
+  const { id_chat, nombre_empresa } = useLocalSearchParams();
   const router = useRouter();
-  const [vacante, setVacante] = useState<any>(null);
+  const [mensajes, setMensajes] = useState<any[]>([]);
+  const [mensaje, setMensaje] = useState('');
   const [loading, setLoading] = useState(true);
-  const [postulando, setPostulando] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [usuario, setUsuario] = useState<any>(null);
+  const flatListRef = useRef<FlatList>(null);
 
-  useEffect(() => {
-    const cargar = async () => {
-      try {
-        const token = await getData('token');
-        const res = await fetch(`${API_URL}/api/vacantes/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        setVacante(data);
-      } catch (error) {
-        console.error('Error cargando vacante', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    cargar();
-  }, [id]);
-
-  const postularse = async () => {
-    setPostulando(true);
+  const cargarMensajes = async () => {
     try {
       const token = await getData('token');
-      const res = await fetch(`${API_URL}/api/postulaciones`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ id_vacante: id }),
+      const res = await fetch(`${API_URL}/api/chats/${id_chat}/mensajes`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      if (data.id_postulacion) {
-        Alert.alert('Exito', 'Te has postulado correctamente a esta vacante.');
-      } else {
-        Alert.alert('Aviso', data.mensaje || 'No se pudo postular');
-      }
+      setMensajes(data);
     } catch (error) {
-      Alert.alert('Error', 'No se pudo completar la postulacion');
+      console.error('Error cargando mensajes', error);
     } finally {
-      setPostulando(false);
+      setLoading(false);
     }
   };
 
-  const iniciarChat = async () => {
+  useEffect(() => {
+    const init = async () => {
+      const u = await getData('usuario');
+      setUsuario(u);
+      cargarMensajes();
+    };
+    init();
+    const intervalo = setInterval(cargarMensajes, 5000);
+    return () => clearInterval(intervalo);
+  }, []);
+
+  const enviarMensaje = async () => {
+    if (!mensaje.trim()) return;
+    setEnviando(true);
     try {
       const token = await getData('token');
-      const res = await fetch(`${API_URL}/api/chats`, {
+      await fetch(`${API_URL}/api/chats/${id_chat}/mensajes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ id_empresa: vacante.id_empresa }),
+        body: JSON.stringify({ contenido: mensaje, emisor: usuario?.rol }),
       });
-      const data = await res.json();
-      router.push({ pathname: '/(drawer)/chat', params: { id_chat: data.id_chat, nombre_empresa: 'Empresa' } } as any);
+      setMensaje('');
+      cargarMensajes();
     } catch (error) {
-      Alert.alert('Error', 'No se pudo iniciar el chat');
+      console.error('Error enviando mensaje', error);
+    } finally {
+      setEnviando(false);
     }
   };
 
   if (loading) return <ActivityIndicator style={{ flex: 1 }} size="large" color="#2563eb" />;
-  if (!vacante) return <Text style={{ textAlign: 'center', marginTop: 40 }}>Vacante no encontrada</Text>;
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset={80}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.btnBack}>
           <Text style={styles.btnBackText}>← Volver</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Detalle de vacante</Text>
+        <View>
+          <Text style={styles.headerTitle}>{nombre_empresa || 'Chat'}</Text>
+          <Text style={styles.headerSub}>Conversacion activa</Text>
+        </View>
       </View>
 
-      <ScrollView style={styles.content}>
-        <View style={styles.card}>
-          <Text style={styles.titulo}>{vacante.titulo}</Text>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{vacante.estado}</Text>
+      <FlatList
+        ref={flatListRef}
+        data={mensajes}
+        keyExtractor={(item: any) => item.id_mensaje.toString()}
+        contentContainerStyle={{ padding: 16, gap: 8 }}
+        onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: true })}
+        ListEmptyComponent={
+          <View style={styles.emptyBox}>
+            <Text style={styles.emptyIcon}>💬</Text>
+            <Text style={styles.empty}>No hay mensajes aun</Text>
+            <Text style={styles.emptyHint}>Se el primero en escribir</Text>
           </View>
-        </View>
-
-        <View style={styles.card}>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoIcon}>📍</Text>
-            <View>
-              <Text style={styles.infoLabel}>Ubicacion</Text>
-              <Text style={styles.infoValue}>{vacante.ubicacion}</Text>
+        }
+        renderItem={({ item }: any) => {
+          const esMio = item.emisor === usuario?.rol;
+          return (
+            <View style={[styles.burbuja, esMio ? styles.burbujaPropia : styles.burbujaAjena]}>
+              <Text style={[styles.burbujaTexto, esMio ? styles.textoPropio : styles.textoAjeno]}>
+                {item.contenido}
+              </Text>
+              <Text style={styles.hora}>
+                {new Date(item.fecha_envio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </Text>
             </View>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoIcon}>📋</Text>
-            <View>
-              <Text style={styles.infoLabel}>Tipo de contrato</Text>
-              <Text style={styles.infoValue}>{vacante.tipo_contrato}</Text>
-            </View>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoIcon}>💰</Text>
-            <View>
-              <Text style={styles.infoLabel}>Salario</Text>
-              <Text style={styles.sueldo}>${Number(vacante.sueldo).toLocaleString()}</Text>
-            </View>
-          </View>
-          <View style={styles.infoRow}>
-            <Text style={styles.infoIcon}>📅</Text>
-            <View>
-              <Text style={styles.infoLabel}>Publicada</Text>
-              <Text style={styles.infoValue}>{new Date(vacante.fecha_publicacion).toLocaleDateString()}</Text>
-            </View>
-          </View>
-        </View>
+          );
+        }}
+      />
 
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Descripcion</Text>
-          <Text style={styles.texto}>{vacante.descripcion}</Text>
-        </View>
-
-        <View style={styles.card}>
-          <Text style={styles.sectionTitle}>Requisitos</Text>
-          <Text style={styles.texto}>{vacante.requisitos}</Text>
-        </View>
-      </ScrollView>
-
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.btnPostular} onPress={postularse} disabled={postulando}>
-          {postulando
-            ? <ActivityIndicator color="#fff" />
-            : <Text style={styles.btnPostularText}>Postularme ahora 🚀</Text>
-          }
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnChat} onPress={iniciarChat}>
-          <Text style={styles.btnChatText}>💬 Chatear con la empresa</Text>
+      <View style={styles.inputBox}>
+        <TextInput
+          style={styles.input}
+          placeholder="Escribe un mensaje..."
+          value={mensaje}
+          onChangeText={setMensaje}
+          multiline
+        />
+        <TouchableOpacity style={styles.btnEnviar} onPress={enviarMensaje} disabled={enviando}>
+          <Text style={styles.btnEnviarText}>{enviando ? '...' : '➤'}</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -155,21 +127,20 @@ const styles = StyleSheet.create({
   btnBack: { padding: 8 },
   btnBackText: { color: '#93c5fd', fontSize: 16 },
   headerTitle: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
-  content: { flex: 1 },
-  card: { backgroundColor: '#fff', margin: 16, marginBottom: 0, borderRadius: 12, padding: 16, elevation: 2 },
-  titulo: { fontSize: 22, fontWeight: 'bold', color: '#1e3a5f', marginBottom: 8 },
-  badge: { backgroundColor: '#dcfce7', paddingHorizontal: 12, paddingVertical: 4, borderRadius: 20, alignSelf: 'flex-start' },
-  badgeText: { color: '#16a34a', fontWeight: '600', fontSize: 13 },
-  infoRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
-  infoIcon: { fontSize: 24 },
-  infoLabel: { fontSize: 12, color: '#6b7280' },
-  infoValue: { fontSize: 15, color: '#1e3a5f', fontWeight: '500' },
-  sueldo: { fontSize: 16, color: '#2563eb', fontWeight: 'bold' },
-  sectionTitle: { fontSize: 16, fontWeight: 'bold', color: '#1e3a5f', marginBottom: 10 },
-  texto: { fontSize: 14, color: '#4b5563', lineHeight: 22 },
-  footer: { padding: 16, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#e5e7eb', gap: 8 },
-  btnPostular: { backgroundColor: '#2563eb', padding: 16, borderRadius: 12, alignItems: 'center' },
-  btnPostularText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
-  btnChat: { backgroundColor: '#fff', padding: 16, borderRadius: 12, alignItems: 'center', borderWidth: 1, borderColor: '#2563eb' },
-  btnChatText: { color: '#2563eb', fontSize: 16, fontWeight: 'bold' },
+  headerSub: { color: '#93c5fd', fontSize: 12 },
+  burbuja: { maxWidth: '80%', padding: 12, borderRadius: 16, marginBottom: 4 },
+  burbujaPropia: { backgroundColor: '#2563eb', alignSelf: 'flex-end', borderBottomRightRadius: 4 },
+  burbujaAjena: { backgroundColor: '#fff', alignSelf: 'flex-start', borderBottomLeftRadius: 4, elevation: 1 },
+  burbujaTexto: { fontSize: 15 },
+  textoPropio: { color: '#fff' },
+  textoAjeno: { color: '#1e3a5f' },
+  hora: { fontSize: 10, color: '#93c5fd', marginTop: 4, textAlign: 'right' },
+  inputBox: { flexDirection: 'row', padding: 12, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#e5e7eb', gap: 8, alignItems: 'flex-end' },
+  input: { flex: 1, borderWidth: 1, borderColor: '#d1d5db', borderRadius: 20, paddingHorizontal: 16, paddingVertical: 10, fontSize: 15, maxHeight: 100 },
+  btnEnviar: { backgroundColor: '#2563eb', width: 44, height: 44, borderRadius: 22, justifyContent: 'center', alignItems: 'center' },
+  btnEnviarText: { color: '#fff', fontSize: 18 },
+  emptyBox: { alignItems: 'center', marginTop: 80 },
+  emptyIcon: { fontSize: 48, marginBottom: 12 },
+  empty: { fontSize: 16, color: '#6b7280', fontWeight: '600' },
+  emptyHint: { fontSize: 13, color: '#9ca3af', marginTop: 4 },
 });

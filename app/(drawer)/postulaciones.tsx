@@ -108,7 +108,7 @@ export default function Postulaciones() {
                 <Text style={styles.fecha}>📅 Postulado el {new Date(item.fecha_postulacion).toLocaleDateString()}</Text>
                 <TouchableOpacity
                   style={styles.btnVer}
-                  onPress={() => router.push({ pathname: '/(drawer)/vacante', params: { id: item.id_vacante } } as any)}
+                 onPress={() => router.push({ pathname: '/(drawer)/vacante', params: { id: String(item.id_vacante) } } as any)}
                 >
                   <Text style={styles.btnVerText}>Ver vacante →</Text>
                 </TouchableOpacity>

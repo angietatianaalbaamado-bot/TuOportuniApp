@@ -44,6 +44,7 @@ export default function DrawerLayout() {
         <Drawer.Screen name="entrevistas" options={{ title: 'Mis entrevistas', drawerIcon: ({ color, size }) => <Ionicons name="calendar" size={size} color={color} />, headerShown: false }} />
         <Drawer.Screen name="editarperfil" options={{ title: 'Editar perfil', drawerItemStyle: { display: 'none' }, headerShown: false }} />
         <Drawer.Screen name="notificaciones" options={{ title: 'Notificaciones', drawerIcon: ({ color, size }) => <Ionicons name="notifications" size={size} color={color} />, headerShown: false }} />
+        <Drawer.Screen name="acerca" options={{ title: 'Acerca de', drawerIcon: ({ color, size }) => <Ionicons name="information-circle" size={size} color={color} />, headerShown: false }} />
       </Drawer>
     </GestureHandlerRootView>
   );
