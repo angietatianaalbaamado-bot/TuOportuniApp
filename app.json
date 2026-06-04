@@ -16,7 +16,6 @@
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#1e3a5f"
       },
-     
       "package": "com.angiealba.tuoportuniapp"
     },
     "web": {
@@ -33,7 +32,9 @@
           "resizeMode": "contain",
           "backgroundColor": "#1e3a5f"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
