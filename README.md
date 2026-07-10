@@ -206,7 +206,7 @@ npx expo start
 
 ## 👩‍💻 Autora
 
-**Angie Tatiana Alba Amado**
+**Angie Tatiana Alba Amado desarrolladora de software**
 Tecnóloga en Análisis y Desarrollo de Software – SENA
 
 [![GitHub](https://img.shields.io/badge/GitHub-angietatianaalbaamado--bot-black?logo=github)](https://github.com/angietatianaalbaamado-bot)
