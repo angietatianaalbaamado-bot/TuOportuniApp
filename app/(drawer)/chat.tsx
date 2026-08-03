@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ActivityIndicator, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getData } from '../../src/services/storageService';
 
@@ -33,6 +33,7 @@ export default function Chat() {
   useEffect(() => {
     const init = async () => {
       const u = await getData('usuario');
+      console.log('Usuario cargado:', u); // <-- para verificar que tenga "rol"
       setUsuario(u);
       cargarMensajes();
     };
@@ -43,21 +44,39 @@ export default function Chat() {
 
   const enviarMensaje = async () => {
     if (!mensaje.trim()) return;
+
+    if (!usuario?.rol) {
+      Alert.alert('Error', 'No se encontró el rol del usuario. Intenta iniciar sesión de nuevo.');
+      return;
+    }
+
     setEnviando(true);
     try {
       const token = await getData('token');
-      await fetch(`${API_URL}/api/chats/${id_chat}/mensajes`, {
+      const payload = { contenido: mensaje, emisor: usuario?.rol };
+      console.log('Enviando payload:', payload); // <-- revisa esto en consola de Expo
+
+      const res = await fetch(`${API_URL}/api/chats/${id_chat}/mensajes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ contenido: mensaje, emisor: usuario?.rol }),
+        body: JSON.stringify(payload),
       });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        console.error('Error del servidor:', errorData);
+        Alert.alert('Error', errorData.mensaje || 'No se pudo enviar el mensaje');
+        return;
+      }
+
       setMensaje('');
       cargarMensajes();
     } catch (error) {
       console.error('Error enviando mensaje', error);
+      Alert.alert('Error', 'No se pudo conectar con el servidor');
     } finally {
       setEnviando(false);
     }
