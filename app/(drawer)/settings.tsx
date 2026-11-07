@@ -1,7 +1,15 @@
-import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
-import { removeData } from '../../src/services/storageService';
+import { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Switch,
+  Alert,
+} from "react-native";
+import { useRouter } from "expo-router";
+import { removeData } from "../../src/services/storageService";
 
 export default function Settings() {
   const router = useRouter();
@@ -10,32 +18,36 @@ export default function Settings() {
   const [sonido, setSonido] = useState(true);
 
   const cerrarSesion = async () => {
-    Alert.alert(
-      'Cerrar sesion',
-      '¿Estas seguro que deseas cerrar sesion?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Cerrar sesion',
-          style: 'destructive',
-          onPress: async () => {
-            await removeData('token');
-            await removeData('usuario');
-            router.replace('/(auth)' as any);
-          },
+    Alert.alert("Cerrar sesion", "¿Estas seguro que deseas cerrar sesion?", [
+      { text: "Cancelar", style: "cancel" },
+      {
+        text: "Cerrar sesion",
+        style: "destructive",
+        onPress: async () => {
+          await removeData("token");
+          await removeData("usuario");
+          router.replace("/(auth)" as any);
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const eliminarCuenta = () => {
     Alert.alert(
-      'Eliminar cuenta',
-      '¿Estas seguro? Esta accion no se puede deshacer.',
+      "Eliminar cuenta",
+      "¿Estas seguro? Esta accion no se puede deshacer.",
       [
-        { text: 'Cancelar', style: 'cancel' },
-        { text: 'Eliminar', style: 'destructive', onPress: () => Alert.alert('Proximamente', 'Esta funcion estara disponible pronto') },
-      ]
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Eliminar",
+          style: "destructive",
+          onPress: () =>
+            Alert.alert(
+              "Proximamente",
+              "Esta funcion estara disponible pronto",
+            ),
+        },
+      ],
     );
   };
 
@@ -53,13 +65,15 @@ export default function Settings() {
         <View style={styles.item}>
           <View>
             <Text style={styles.itemTitle}>Notificaciones push</Text>
-            <Text style={styles.itemDesc}>Recibe alertas de nuevas vacantes</Text>
+            <Text style={styles.itemDesc}>
+              Recibe alertas de nuevas vacantes
+            </Text>
           </View>
           <Switch
             value={notificaciones}
             onValueChange={setNotificaciones}
-            trackColor={{ false: '#d1d5db', true: '#bfdbfe' }}
-            thumbColor={notificaciones ? '#2563eb' : '#9ca3af'}
+            trackColor={{ false: "#d1d5db", true: "#bfdbfe" }}
+            thumbColor={notificaciones ? "#2563eb" : "#9ca3af"}
           />
         </View>
         <View style={styles.item}>
@@ -70,8 +84,8 @@ export default function Settings() {
           <Switch
             value={sonido}
             onValueChange={setSonido}
-            trackColor={{ false: '#d1d5db', true: '#bfdbfe' }}
-            thumbColor={sonido ? '#2563eb' : '#9ca3af'}
+            trackColor={{ false: "#d1d5db", true: "#bfdbfe" }}
+            thumbColor={sonido ? "#2563eb" : "#9ca3af"}
           />
         </View>
       </View>
@@ -87,8 +101,8 @@ export default function Settings() {
           <Switch
             value={modoOscuro}
             onValueChange={setModoOscuro}
-            trackColor={{ false: '#d1d5db', true: '#bfdbfe' }}
-            thumbColor={modoOscuro ? '#2563eb' : '#9ca3af'}
+            trackColor={{ false: "#d1d5db", true: "#bfdbfe" }}
+            thumbColor={modoOscuro ? "#2563eb" : "#9ca3af"}
           />
         </View>
       </View>
@@ -103,14 +117,20 @@ export default function Settings() {
           </View>
           <Text style={styles.arrow}>→</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.item} onPress={() => Alert.alert('Terminos', 'Proximamente disponible')}>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => Alert.alert("Terminos", "Proximamente disponible")}
+        >
           <View>
             <Text style={styles.itemTitle}>Terminos y condiciones</Text>
             <Text style={styles.itemDesc}>Lee nuestros terminos</Text>
           </View>
           <Text style={styles.arrow}>→</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.item} onPress={() => Alert.alert('Privacidad', 'Proximamente disponible')}>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => Alert.alert("Privacidad", "Proximamente disponible")}
+        >
           <View>
             <Text style={styles.itemTitle}>Politica de privacidad</Text>
             <Text style={styles.itemDesc}>Como usamos tus datos</Text>
@@ -136,22 +156,50 @@ export default function Settings() {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.footer}>© 2025 TuOportuniApp · Todos los derechos reservados</Text>
+      <Text style={styles.footer}>
+        © 2025 TuOportuniApp · Todos los derechos reservados
+      </Text>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6' },
-  header: { backgroundColor: '#1e3a5f', paddingTop: 60, paddingBottom: 24, paddingHorizontal: 20 },
-  headerTitle: { color: '#fff', fontSize: 24, fontWeight: 'bold' },
-  headerSub: { color: '#93c5fd', fontSize: 14, marginTop: 4 },
-  section: { backgroundColor: '#fff', margin: 16, marginBottom: 0, borderRadius: 12, padding: 16, elevation: 2 },
-  sectionTitle: { fontSize: 14, fontWeight: 'bold', color: '#6b7280', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 1 },
-  item: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
-  itemTitle: { fontSize: 15, color: '#1e3a5f', fontWeight: '500' },
-  itemDesc: { fontSize: 12, color: '#9ca3af', marginTop: 2 },
-  itemTitleDanger: { fontSize: 15, color: '#dc2626', fontWeight: '500' },
-  arrow: { fontSize: 16, color: '#9ca3af' },
-  footer: { textAlign: 'center', color: '#9ca3af', fontSize: 12, padding: 24 },
+  container: { flex: 1, backgroundColor: "#f3f4f6" },
+  header: {
+    backgroundColor: "#1e3a5f",
+    paddingTop: 60,
+    paddingBottom: 24,
+    paddingHorizontal: 20,
+  },
+  headerTitle: { color: "#fff", fontSize: 24, fontWeight: "bold" },
+  headerSub: { color: "#93c5fd", fontSize: 14, marginTop: 4 },
+  section: {
+    backgroundColor: "#fff",
+    margin: 16,
+    marginBottom: 0,
+    borderRadius: 12,
+    padding: 16,
+    elevation: 2,
+  },
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#6b7280",
+    marginBottom: 12,
+    textTransform: "uppercase",
+    letterSpacing: 1,
+  },
+  item: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f3f4f6",
+  },
+  itemTitle: { fontSize: 15, color: "#1e3a5f", fontWeight: "500" },
+  itemDesc: { fontSize: 12, color: "#9ca3af", marginTop: 2 },
+  itemTitleDanger: { fontSize: 15, color: "#dc2626", fontWeight: "500" },
+  arrow: { fontSize: 16, color: "#9ca3af" },
+  footer: { textAlign: "center", color: "#9ca3af", fontSize: 12, padding: 24 },
 });

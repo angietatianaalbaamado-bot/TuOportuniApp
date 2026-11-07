@@ -1,5 +1,16 @@
 import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator, Image, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { loginService } from "../../src/services/auth.service";
 import { setData } from "../../src/services/storageService";
@@ -33,13 +44,18 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
         {/* Header azul */}
         <View style={styles.topSection}>
           <Image
-            source={require('../../assets/images/logo.png')}
+            source={require("../../assets/images/logo.png")}
             style={styles.logo}
             resizeMode="contain"
           />
@@ -76,8 +92,11 @@ export default function LoginScreen() {
                 onChangeText={setContrasena}
                 secureTextEntry={!showPass}
               />
-              <TouchableOpacity onPress={() => setShowPass(!showPass)} style={styles.eyeBtn}>
-                <Text>{showPass ? '🙈' : '👁️'}</Text>
+              <TouchableOpacity
+                onPress={() => setShowPass(!showPass)}
+                style={styles.eyeBtn}
+              >
+                <Text>{showPass ? "🙈" : "👁️"}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -88,11 +107,17 @@ export default function LoginScreen() {
             </View>
           ) : null}
 
-          <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading} activeOpacity={0.8}>
-            {loading
-              ? <ActivityIndicator color="#fff" />
-              : <Text style={styles.buttonText}>Ingresar →</Text>
-            }
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleLogin}
+            disabled={loading}
+            activeOpacity={0.8}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Text style={styles.buttonText}>Ingresar →</Text>
+            )}
           </TouchableOpacity>
 
           <View style={styles.divider}>
@@ -101,7 +126,11 @@ export default function LoginScreen() {
             <View style={styles.dividerLine} />
           </View>
 
-          <TouchableOpacity style={styles.btnRegistro} onPress={() => router.push("/(auth)/register")} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.btnRegistro}
+            onPress={() => router.push("/(auth)/register")}
+            activeOpacity={0.8}
+          >
             <Text style={styles.btnRegistroText}>✨ Crear cuenta gratis</Text>
           </TouchableOpacity>
 
@@ -115,34 +144,86 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flexGrow: 1, backgroundColor: '#1e3a5f' },
-  topSection: { alignItems: 'center', paddingTop: 60, paddingBottom: 30 },
+  container: { flexGrow: 1, backgroundColor: "#1e3a5f" },
+  topSection: { alignItems: "center", paddingTop: 60, paddingBottom: 30 },
   logo: { width: 80, height: 80, marginBottom: 12 },
-  appName: { fontSize: 26, fontWeight: 'bold', color: '#fff' },
-  tagline: { fontSize: 14, color: '#93c5fd', marginTop: 6 },
+  appName: { fontSize: 26, fontWeight: "bold", color: "#fff" },
+  tagline: { fontSize: 14, color: "#93c5fd", marginTop: 6 },
   formSection: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
     padding: 28,
     paddingBottom: 48,
     flex: 1,
   },
-  titulo: { fontSize: 24, fontWeight: 'bold', color: '#1e3a5f', marginBottom: 6 },
-  subtitulo: { fontSize: 14, color: '#6b7280', marginBottom: 24 },
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#1e3a5f",
+    marginBottom: 6,
+  },
+  subtitulo: { fontSize: 14, color: "#6b7280", marginBottom: 24 },
   inputWrapper: { marginBottom: 16 },
-  inputLabel: { fontSize: 13, color: '#374151', fontWeight: '600', marginBottom: 6 },
-  input: { borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 10, padding: 14, fontSize: 15, color: '#111827', backgroundColor: '#f9fafb' },
-  inputRow: { flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#e5e7eb', borderRadius: 10, backgroundColor: '#f9fafb' },
+  inputLabel: {
+    fontSize: 13,
+    color: "#374151",
+    fontWeight: "600",
+    marginBottom: 6,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    borderRadius: 10,
+    padding: 14,
+    fontSize: 15,
+    color: "#111827",
+    backgroundColor: "#f9fafb",
+  },
+  inputRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    borderRadius: 10,
+    backgroundColor: "#f9fafb",
+  },
   eyeBtn: { padding: 14 },
-  errorBox: { backgroundColor: '#fef2f2', borderRadius: 8, padding: 12, marginBottom: 16, borderLeftWidth: 3, borderLeftColor: '#dc2626' },
-  errorText: { color: '#dc2626', fontSize: 13 },
-  button: { backgroundColor: '#2563eb', padding: 16, borderRadius: 12, alignItems: 'center', marginBottom: 16, elevation: 3 },
-  buttonText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
-  divider: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, gap: 8 },
-  dividerLine: { flex: 1, height: 1, backgroundColor: '#e5e7eb' },
-  dividerText: { color: '#9ca3af', fontSize: 13 },
-  btnRegistro: { backgroundColor: '#eff6ff', padding: 16, borderRadius: 12, alignItems: 'center', marginBottom: 16, borderWidth: 1, borderColor: '#bfdbfe' },
-  btnRegistroText: { color: '#2563eb', fontSize: 15, fontWeight: 'bold' },
-  link: { color: '#6b7280', textAlign: 'center', fontSize: 14 },
+  errorBox: {
+    backgroundColor: "#fef2f2",
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 16,
+    borderLeftWidth: 3,
+    borderLeftColor: "#dc2626",
+  },
+  errorText: { color: "#dc2626", fontSize: 13 },
+  button: {
+    backgroundColor: "#2563eb",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    marginBottom: 16,
+    elevation: 3,
+  },
+  buttonText: { color: "#fff", fontSize: 16, fontWeight: "bold" },
+  divider: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+    gap: 8,
+  },
+  dividerLine: { flex: 1, height: 1, backgroundColor: "#e5e7eb" },
+  dividerText: { color: "#9ca3af", fontSize: 13 },
+  btnRegistro: {
+    backgroundColor: "#eff6ff",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: "#bfdbfe",
+  },
+  btnRegistroText: { color: "#2563eb", fontSize: 15, fontWeight: "bold" },
+  link: { color: "#6b7280", textAlign: "center", fontSize: 14 },
 });

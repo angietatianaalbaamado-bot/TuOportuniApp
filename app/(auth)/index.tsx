@@ -1,6 +1,14 @@
-import { useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, StatusBar, Animated } from 'react-native';
-import { router } from 'expo-router';
+import { useEffect, useRef } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  StatusBar,
+  Animated,
+} from "react-native";
+import { router } from "expo-router";
 
 export default function AuthIndex() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -28,7 +36,7 @@ export default function AuthIndex() {
       {/* Fondo superior con animación */}
       <Animated.View style={[styles.topSection, { opacity: fadeAnim }]}>
         <Image
-          source={require('../../assets/images/logo.png')}
+          source={require("../../assets/images/logo.png")}
           style={styles.logo}
           resizeMode="contain"
         />
@@ -55,15 +63,21 @@ export default function AuthIndex() {
       </Animated.View>
 
       {/* Sección inferior con animación */}
-      <Animated.View style={[styles.bottomSection, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
+      <Animated.View
+        style={[
+          styles.bottomSection,
+          { opacity: fadeAnim, transform: [{ translateY: slideAnim }] },
+        ]}
+      >
         <Text style={styles.titulo}>Encuentra tu próximo empleo 💼</Text>
         <Text style={styles.subtitulo}>
-          Miles de vacantes verificadas te esperan. Postúlate fácil, rápido y seguro.
+          Miles de vacantes verificadas te esperan. Postúlate fácil, rápido y
+          seguro.
         </Text>
 
         <TouchableOpacity
           style={styles.btnPrimario}
-          onPress={() => router.push('/(auth)/login')}
+          onPress={() => router.push("/(auth)/login")}
           activeOpacity={0.8}
         >
           <Text style={styles.btnPrimarioText}>🔑 Iniciar sesión</Text>
@@ -71,7 +85,7 @@ export default function AuthIndex() {
 
         <TouchableOpacity
           style={styles.btnSecundario}
-          onPress={() => router.push('/(auth)/register')}
+          onPress={() => router.push("/(auth)/register")}
           activeOpacity={0.8}
         >
           <Text style={styles.btnSecundarioText}>✨ Crear cuenta gratis</Text>
@@ -86,49 +100,69 @@ export default function AuthIndex() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#1e3a5f' },
+  container: { flex: 1, backgroundColor: "#1e3a5f" },
   topSection: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingTop: 60,
     paddingBottom: 30,
   },
   logo: { width: 110, height: 110, marginBottom: 16 },
-  appName: { fontSize: 34, fontWeight: 'bold', color: '#fff', letterSpacing: 1 },
-  tagline: { fontSize: 14, color: '#93c5fd', marginTop: 8, marginBottom: 24 },
-  stats: { flexDirection: 'row', alignItems: 'center', gap: 16 },
-  statItem: { alignItems: 'center' },
-  statNum: { fontSize: 20, fontWeight: 'bold', color: '#fff' },
-  statLabel: { fontSize: 12, color: '#93c5fd' },
-  statDivider: { width: 1, height: 30, backgroundColor: '#93c5fd', opacity: 0.4 },
+  appName: {
+    fontSize: 34,
+    fontWeight: "bold",
+    color: "#fff",
+    letterSpacing: 1,
+  },
+  tagline: { fontSize: 14, color: "#93c5fd", marginTop: 8, marginBottom: 24 },
+  stats: { flexDirection: "row", alignItems: "center", gap: 16 },
+  statItem: { alignItems: "center" },
+  statNum: { fontSize: 20, fontWeight: "bold", color: "#fff" },
+  statLabel: { fontSize: 12, color: "#93c5fd" },
+  statDivider: {
+    width: 1,
+    height: 30,
+    backgroundColor: "#93c5fd",
+    opacity: 0.4,
+  },
   bottomSection: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
     padding: 32,
     paddingBottom: 48,
   },
-  titulo: { fontSize: 22, fontWeight: 'bold', color: '#1e3a5f', marginBottom: 10 },
-  subtitulo: { fontSize: 14, color: '#6b7280', lineHeight: 22, marginBottom: 28 },
+  titulo: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#1e3a5f",
+    marginBottom: 10,
+  },
+  subtitulo: {
+    fontSize: 14,
+    color: "#6b7280",
+    lineHeight: 22,
+    marginBottom: 28,
+  },
   btnPrimario: {
-    backgroundColor: '#2563eb',
+    backgroundColor: "#2563eb",
     padding: 16,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 12,
     elevation: 3,
   },
-  btnPrimarioText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  btnPrimarioText: { color: "#fff", fontSize: 16, fontWeight: "bold" },
   btnSecundario: {
-    backgroundColor: '#eff6ff',
+    backgroundColor: "#eff6ff",
     padding: 16,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 28,
     borderWidth: 1,
-    borderColor: '#bfdbfe',
+    borderColor: "#bfdbfe",
   },
-  btnSecundarioText: { color: '#2563eb', fontSize: 16, fontWeight: 'bold' },
-  footer: { textAlign: 'center', color: '#9ca3af', fontSize: 12 },
+  btnSecundarioText: { color: "#2563eb", fontSize: 16, fontWeight: "bold" },
+  footer: { textAlign: "center", color: "#9ca3af", fontSize: 12 },
 });

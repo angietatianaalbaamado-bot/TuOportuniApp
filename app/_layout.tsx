@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { Stack } from 'expo-router';
-import { View, Image, Text, Animated, StyleSheet } from 'react-native';
+import { useEffect, useRef, useState } from "react";
+import { Stack } from "expo-router";
+import { View, Image, Text, Animated, StyleSheet } from "react-native";
 
 function SplashScreen({ onFinish }: { onFinish: () => void }) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -32,14 +32,22 @@ function SplashScreen({ onFinish }: { onFinish: () => void }) {
 
   return (
     <View style={styles.splash}>
-      <Animated.View style={{ opacity: fadeAnim, transform: [{ scale: scaleAnim }], alignItems: 'center' }}>
+      <Animated.View
+        style={{
+          opacity: fadeAnim,
+          transform: [{ scale: scaleAnim }],
+          alignItems: "center",
+        }}
+      >
         <Image
-          source={require('../assets/images/logo.png')}
+          source={require("../assets/images/logo.png")}
           style={styles.splashLogo}
           resizeMode="contain"
         />
         <Text style={styles.splashTitle}>TuOportuniApp</Text>
-        <Text style={styles.splashTagline}>Conectamos talento con oportunidades</Text>
+        <Text style={styles.splashTagline}>
+          Conectamos talento con oportunidades
+        </Text>
       </Animated.View>
     </View>
   );
@@ -52,21 +60,21 @@ export default function RootLayout() {
     return <SplashScreen onFinish={() => setShowSplash(false)} />;
   }
 
-return (
-  <Stack screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="(auth)" />
-    <Stack.Screen name="(drawer)" />
-    <Stack.Screen name="chat" />
-  </Stack>
-);
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(drawer)" />
+      <Stack.Screen name="chat" />
+    </Stack>
+  );
 }
 
 const styles = StyleSheet.create({
   splash: {
     flex: 1,
-    backgroundColor: '#1e3a5f',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#1e3a5f",
+    justifyContent: "center",
+    alignItems: "center",
   },
   splashLogo: {
     width: 150,
@@ -75,13 +83,13 @@ const styles = StyleSheet.create({
   },
   splashTitle: {
     fontSize: 32,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     letterSpacing: 1,
   },
   splashTagline: {
     fontSize: 14,
-    color: '#93c5fd',
+    color: "#93c5fd",
     marginTop: 8,
   },
 });

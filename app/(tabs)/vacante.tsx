@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { getData } from '../../src/services/storageService';
+import { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { getData } from "../../src/services/storageService";
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 export default function DetalleVacante() {
   const { id } = useLocalSearchParams();
-  console.log('ID vacante recibido:', id);
+  console.log("ID vacante recibido:", id);
   const router = useRouter();
   const [vacante, setVacante] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -16,14 +24,14 @@ export default function DetalleVacante() {
   useEffect(() => {
     const cargar = async () => {
       try {
-        const token = await getData('token');
+        const token = await getData("token");
         const res = await fetch(`${API_URL}/api/vacantes/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
         setVacante(data);
       } catch (error) {
-        console.error('Error cargando vacante', error);
+        console.error("Error cargando vacante", error);
       } finally {
         setLoading(false);
       }
@@ -34,30 +42,41 @@ export default function DetalleVacante() {
   const postularse = async () => {
     setPostulando(true);
     try {
-      const token = await getData('token');
+      const token = await getData("token");
       const res = await fetch(`${API_URL}/api/postulaciones`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ id_vacante: id }),
       });
       const data = await res.json();
       if (data.id_postulacion) {
-        Alert.alert('¡Éxito!', 'Te has postulado correctamente a esta vacante.');
+        Alert.alert(
+          "¡Éxito!",
+          "Te has postulado correctamente a esta vacante.",
+        );
       } else {
-        Alert.alert('Aviso', data.mensaje || 'No se pudo postular');
+        Alert.alert("Aviso", data.mensaje || "No se pudo postular");
       }
     } catch (error) {
-      Alert.alert('Error', 'No se pudo completar la postulación');
+      Alert.alert("Error", "No se pudo completar la postulación");
     } finally {
       setPostulando(false);
     }
   };
 
-  if (loading) return <ActivityIndicator style={{ flex: 1 }} size="large" color="#2563eb" />;
-  if (!vacante) return <Text style={{ textAlign: 'center', marginTop: 40 }}>Vacante no encontrada</Text>;
+  if (loading)
+    return (
+      <ActivityIndicator style={{ flex: 1 }} size="large" color="#2563eb" />
+    );
+  if (!vacante)
+    return (
+      <Text style={{ textAlign: "center", marginTop: 40 }}>
+        Vacante no encontrada
+      </Text>
+    );
 
   return (
     <View style={styles.container}>
@@ -98,14 +117,18 @@ export default function DetalleVacante() {
             <Text style={styles.infoIcon}>💰</Text>
             <View>
               <Text style={styles.infoLabel}>Salario</Text>
-              <Text style={styles.sueldo}>${Number(vacante.sueldo).toLocaleString()}</Text>
+              <Text style={styles.sueldo}>
+                ${Number(vacante.sueldo).toLocaleString()}
+              </Text>
             </View>
           </View>
           <View style={styles.infoRow}>
             <Text style={styles.infoIcon}>📅</Text>
             <View>
               <Text style={styles.infoLabel}>Publicada</Text>
-              <Text style={styles.infoValue}>{new Date(vacante.fecha_publicacion).toLocaleDateString()}</Text>
+              <Text style={styles.infoValue}>
+                {new Date(vacante.fecha_publicacion).toLocaleDateString()}
+              </Text>
             </View>
           </View>
         </View>
@@ -125,11 +148,16 @@ export default function DetalleVacante() {
 
       {/* Botón postularse */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.btnPostular} onPress={postularse} disabled={postulando}>
-          {postulando
-            ? <ActivityIndicator color="#fff" />
-            : <Text style={styles.btnPostularText}>Postularme ahora 🚀</Text>
-          }
+        <TouchableOpacity
+          style={styles.btnPostular}
+          onPress={postularse}
+          disabled={postulando}
+        >
+          {postulando ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.btnPostularText}>Postularme ahora 🚀</Text>
+          )}
         </TouchableOpacity>
       </View>
     </View>
@@ -137,24 +165,72 @@ export default function DetalleVacante() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6' },
-  header: { backgroundColor: '#1e3a5f', paddingTop: 50, paddingBottom: 16, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', gap: 12 },
+  container: { flex: 1, backgroundColor: "#f3f4f6" },
+  header: {
+    backgroundColor: "#1e3a5f",
+    paddingTop: 50,
+    paddingBottom: 16,
+    paddingHorizontal: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
   btnBack: { padding: 8 },
-  btnBackText: { color: '#93c5fd', fontSize: 16 },
-  headerTitle: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  btnBackText: { color: "#93c5fd", fontSize: 16 },
+  headerTitle: { color: "#fff", fontSize: 18, fontWeight: "bold" },
   content: { flex: 1 },
-  card: { backgroundColor: '#fff', margin: 16, marginBottom: 0, borderRadius: 12, padding: 16, elevation: 2 },
-  titulo: { fontSize: 22, fontWeight: 'bold', color: '#1e3a5f', marginBottom: 8 },
-  badge: { backgroundColor: '#dcfce7', paddingHorizontal: 12, paddingVertical: 4, borderRadius: 20, alignSelf: 'flex-start' },
-  badgeText: { color: '#16a34a', fontWeight: '600', fontSize: 13 },
-  infoRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#f3f4f6' },
+  card: {
+    backgroundColor: "#fff",
+    margin: 16,
+    marginBottom: 0,
+    borderRadius: 12,
+    padding: 16,
+    elevation: 2,
+  },
+  titulo: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#1e3a5f",
+    marginBottom: 8,
+  },
+  badge: {
+    backgroundColor: "#dcfce7",
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 20,
+    alignSelf: "flex-start",
+  },
+  badgeText: { color: "#16a34a", fontWeight: "600", fontSize: 13 },
+  infoRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f3f4f6",
+  },
   infoIcon: { fontSize: 24 },
-  infoLabel: { fontSize: 12, color: '#6b7280' },
-  infoValue: { fontSize: 15, color: '#1e3a5f', fontWeight: '500' },
-  sueldo: { fontSize: 16, color: '#2563eb', fontWeight: 'bold' },
-  sectionTitle: { fontSize: 16, fontWeight: 'bold', color: '#1e3a5f', marginBottom: 10 },
-  texto: { fontSize: 14, color: '#4b5563', lineHeight: 22 },
-  footer: { padding: 16, backgroundColor: '#fff', borderTopWidth: 1, borderTopColor: '#e5e7eb' },
-  btnPostular: { backgroundColor: '#2563eb', padding: 16, borderRadius: 12, alignItems: 'center' },
-  btnPostularText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  infoLabel: { fontSize: 12, color: "#6b7280" },
+  infoValue: { fontSize: 15, color: "#1e3a5f", fontWeight: "500" },
+  sueldo: { fontSize: 16, color: "#2563eb", fontWeight: "bold" },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#1e3a5f",
+    marginBottom: 10,
+  },
+  texto: { fontSize: 14, color: "#4b5563", lineHeight: 22 },
+  footer: {
+    padding: 16,
+    backgroundColor: "#fff",
+    borderTopWidth: 1,
+    borderTopColor: "#e5e7eb",
+  },
+  btnPostular: {
+    backgroundColor: "#2563eb",
+    padding: 16,
+    borderRadius: 12,
+    alignItems: "center",
+  },
+  btnPostularText: { color: "#fff", fontSize: 16, fontWeight: "bold" },
 });

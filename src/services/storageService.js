@@ -1,6 +1,7 @@
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Guardar dato
+// Guardar dato en el almacenamiento local
 export const setData = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
@@ -9,7 +10,7 @@ export const setData = async (key, value) => {
   }
 };
 
-// Obtener dato
+// Obtener dato del almacenamiento local
 export const getData = async (key) => {
   try {
     const data = await AsyncStorage.getItem(key);
@@ -20,7 +21,7 @@ export const getData = async (key) => {
   }
 };
 
-// Eliminar dato
+// Eliminar dato del almacenamiento local
 export const removeData = async (key) => {
   try {
     await AsyncStorage.removeItem(key);
