@@ -13,33 +13,46 @@ import {
 import { useRouter } from "expo-router";
 import { getData } from "../../src/services/storageService";
 
+// URL base del backend, definida en las variables de entorno de Expo
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
+// Quita mayúsculas y tildes para que la búsqueda ignore ambas ("Bogotá" = "bogota")
 const normalizar = (str: string) =>
   str
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 
+// Opciones de los filtros (la primera de cada lista significa "sin filtro")
+const CONTRATOS = [
+  "Todos",
+  "Termino indefinido",
+  "Termino fijo",
+  "Prestacion de servicios",
+];
+const MODALIDADES = ["Todas", "presencial", "remoto", "hibrido"];
+
+// Ícono que acompaña a cada modalidad
+const modalidadIcon: any = { presencial: "🏢", remoto: "🏠", hibrido: "🔄" };
+
 export default function Home() {
   const router = useRouter();
-  const [vacantes, setVacantes] = useState([]);
-  const [vacantesFilter, setVacantesFilter] = useState([]);
+
+  // Datos: lista completa, lista filtrada y usuario con sesión
+  const [vacantes, setVacantes] = useState<any[]>([]);
+  const [vacantesFilter, setVacantesFilter] = useState<any[]>([]);
+  const [usuario, setUsuario] = useState<any>(null);
+
+  // Estados de carga
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [usuario, setUsuario] = useState<any>(null);
+
+  // Búsqueda y filtros seleccionados
   const [busqueda, setBusqueda] = useState("");
   const [filtroContrato, setFiltroContrato] = useState("Todos");
   const [filtroModalidad, setFiltroModalidad] = useState("Todas");
 
-  const contratos = [
-    "Todos",
-    "Termino indefinido",
-    "Termino fijo",
-    "Prestacion de servicios",
-  ];
-  const modalidades = ["Todas", "presencial", "remoto", "hibrido"];
-
+  // Consulta las vacantes al backend
   const cargarVacantes = async () => {
     try {
       const token = await getData("token");
@@ -47,8 +60,12 @@ export default function Home() {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
-      setVacantes(data);
-      setVacantesFilter(data);
+
+      // Si el backend responde con un error, "data" no es una lista:
+      // se usa una lista vacía para que la pantalla no falle
+      const lista = Array.isArray(data) ? data : [];
+      setVacantes(lista);
+      setVacantesFilter(lista);
     } catch (error) {
       console.error("Error cargando vacantes", error);
     } finally {
@@ -57,6 +74,7 @@ export default function Home() {
     }
   };
 
+  // Al abrir la pantalla: lee el usuario guardado y carga las vacantes
   useEffect(() => {
     const init = async () => {
       const u = await getData("usuario");
@@ -66,8 +84,11 @@ export default function Home() {
     init();
   }, []);
 
+  // Cada vez que cambia la búsqueda o un filtro, recalcula la lista visible
   useEffect(() => {
     let resultado: any[] = vacantes;
+
+    // Búsqueda por título, ubicación o descripción
     if (busqueda) {
       resultado = resultado.filter(
         (v: any) =>
@@ -76,11 +97,15 @@ export default function Home() {
           normalizar(v.descripcion || "").includes(normalizar(busqueda)),
       );
     }
+
+    // Filtro por tipo de contrato
     if (filtroContrato !== "Todos") {
       resultado = resultado.filter((v: any) =>
         normalizar(v.tipo_contrato || "").includes(normalizar(filtroContrato)),
       );
     }
+
+    // Filtro por modalidad (si la vacante no la trae, se toma como presencial)
     if (filtroModalidad !== "Todas") {
       resultado = resultado.filter((v: any) =>
         normalizar(v.modalidad || "presencial").includes(
@@ -88,18 +113,21 @@ export default function Home() {
         ),
       );
     }
+
     setVacantesFilter(resultado);
   }, [busqueda, filtroContrato, filtroModalidad, vacantes]);
 
+  // Recarga la lista al tirar de la pantalla hacia abajo
   const onRefresh = () => {
     setRefreshing(true);
     cargarVacantes();
   };
 
+  // Abre el menú del sistema para compartir una vacante
   const compartirVacante = async (item: any) => {
     try {
       await Share.share({
-        message: `🚀 Oportunidad laboral: ${item.titulo}\n📍 ${item.ubicacion}\n💰 $${Number(item.sueldo).toLocaleString()}\n📋 ${item.tipo_contrato}\n\nPostulate en TuOportuniApp`,
+        message: ` Oportunidad laboral: ${item.titulo}\n ${item.ubicacion}\n $${Number(item.sueldo).toLocaleString()}\n📋 ${item.tipo_contrato}\n\nPostulate en TuOportuniApp`,
         title: item.titulo,
       });
     } catch (error) {
@@ -107,8 +135,7 @@ export default function Home() {
     }
   };
 
-  const modalidadIcon: any = { presencial: "🏢", remoto: "🏠", hibrido: "🔄" };
-
+  // Mientras se cargan las vacantes se muestra un indicador
   if (loading)
     return (
       <ActivityIndicator style={{ flex: 1 }} size="large" color="#2563eb" />
@@ -116,16 +143,17 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
+      {/* Saludo al usuario */}
       <View style={styles.saludoBox}>
-        <Text style={styles.saludo}>Hola, {usuario?.nombre} 👋</Text>
+        <Text style={styles.saludo}>Hola, {usuario?.nombre} </Text>
         <Text style={styles.subtitulo}>Encuentra tu oportunidad laboral</Text>
       </View>
 
-      {/* Buscador */}
+      {/* Buscador, con botón para limpiar el texto */}
       <View style={styles.searchBox}>
         <TextInput
           style={styles.searchInput}
-          placeholder="🔍 Buscar por cargo o ciudad..."
+          placeholder=" Buscar por cargo o ciudad..."
           placeholderTextColor="#9ca3af"
           value={busqueda}
           onChangeText={setBusqueda}
@@ -140,12 +168,14 @@ export default function Home() {
         )}
       </View>
 
-      {/* Filtro tipo contrato */}
+      {/* Filtro por tipo de contrato.
+          "filtrosLista" evita que la fila se encoja y se recorte */}
       <FlatList
         horizontal
-        data={contratos}
+        data={CONTRATOS}
         keyExtractor={(item) => item}
         showsHorizontalScrollIndicator={false}
+        style={styles.filtrosLista}
         contentContainerStyle={styles.filtrosBox}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -167,12 +197,13 @@ export default function Home() {
         )}
       />
 
-      {/* Filtro modalidad */}
+      {/* Filtro por modalidad de trabajo */}
       <FlatList
         horizontal
-        data={modalidades}
+        data={MODALIDADES}
         keyExtractor={(item) => item}
         showsHorizontalScrollIndicator={false}
+        style={styles.filtrosLista}
         contentContainerStyle={styles.filtrosBox}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -194,11 +225,13 @@ export default function Home() {
         )}
       />
 
+      {/* Cantidad de vacantes que cumplen la búsqueda y los filtros */}
       <Text style={styles.resultados}>
         {vacantesFilter.length} vacante{vacantesFilter.length !== 1 ? "s" : ""}{" "}
         encontrada{vacantesFilter.length !== 1 ? "s" : ""}
       </Text>
 
+      {/* Lista de vacantes */}
       <FlatList
         data={vacantesFilter}
         keyExtractor={(item: any) => item.id_vacante.toString()}
@@ -206,6 +239,7 @@ export default function Home() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}
+        // Vista para cuando ninguna vacante cumple los filtros
         ListEmptyComponent={
           <View style={styles.emptyBox}>
             <Text style={styles.emptyIcon}>🔍</Text>
@@ -213,6 +247,7 @@ export default function Home() {
             <Text style={styles.emptyHint}>Intenta con otra busqueda</Text>
           </View>
         }
+        // Tarjeta de cada vacante
         renderItem={({ item }: any) => (
           <View style={styles.card}>
             <View style={styles.cardHeader}>
@@ -232,10 +267,11 @@ export default function Home() {
                 {item.modalidad || "presencial"}
               </Text>
               <Text style={styles.sueldo}>
-                💰 ${Number(item.sueldo).toLocaleString()}
+                ${Number(item.sueldo).toLocaleString()}
               </Text>
             </View>
             <View style={styles.cardFooter}>
+              {/* Abre el detalle de la vacante */}
               <TouchableOpacity
                 style={styles.btnPostular}
                 onPress={() =>
@@ -247,6 +283,7 @@ export default function Home() {
               >
                 <Text style={styles.btnText}>Ver detalle →</Text>
               </TouchableOpacity>
+              {/* Comparte la vacante */}
               <TouchableOpacity
                 style={styles.btnCompartir}
                 onPress={() => compartirVacante(item)}
@@ -261,6 +298,7 @@ export default function Home() {
   );
 }
 
+// Estilos de la pantalla
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f3f4f6" },
   saludoBox: { padding: 16, paddingBottom: 8 },
@@ -293,6 +331,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   btnLimpiarText: { color: "#6b7280", fontSize: 14, fontWeight: "bold" },
+
+  // La lista de filtros no crece ni se encoge: ocupa solo la altura de sus botones
+  filtrosLista: { flexGrow: 0, flexShrink: 0 },
   filtrosBox: { paddingHorizontal: 16, paddingBottom: 8, gap: 8 },
   filtroBtn: {
     paddingHorizontal: 16,
@@ -310,6 +351,7 @@ const styles = StyleSheet.create({
   filtroTextActive: { color: "#fff", fontWeight: "bold" },
   resultados: {
     paddingHorizontal: 16,
+    paddingVertical: 4,
     paddingBottom: 8,
     fontSize: 13,
     color: "#6b7280",
