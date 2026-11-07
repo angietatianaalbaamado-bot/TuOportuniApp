@@ -67,15 +67,13 @@ export default function Home() {
         />
         <View>
           <Text style={styles.appName}>TuOportuniApp</Text>
-          <Text style={styles.tagline}>
-            Encuentra tu oportunidad laboral 💼
-          </Text>
+          <Text style={styles.tagline}>Encuentra tu oportunidad laboral</Text>
         </View>
       </View>
 
       {/* Saludo */}
       <View style={styles.saludoBox}>
-        <Text style={styles.saludo}>Hola, {usuario?.nombre} 👋</Text>
+        <Text style={styles.saludo}>Hola, {usuario?.nombre} </Text>
         <Text style={styles.subtitulo}>
           Estas son las vacantes disponibles para ti
         </Text>
@@ -90,7 +88,7 @@ export default function Home() {
         }
         ListEmptyComponent={
           <View style={styles.emptyBox}>
-            <Text style={styles.emptyIcon}>🔍</Text>
+            <Text style={styles.emptyIcon}></Text>
             <Text style={styles.empty}>No hay vacantes disponibles</Text>
             <Text style={styles.emptyHint}>
               Desliza hacia abajo para actualizar
@@ -109,10 +107,10 @@ export default function Home() {
               {item.descripcion}
             </Text>
             <View style={styles.info}>
-              <Text style={styles.infoText}>📍 {item.ubicacion}</Text>
-              <Text style={styles.infoText}>📋 {item.tipo_contrato}</Text>
+              <Text style={styles.infoText}> {item.ubicacion}</Text>
+              <Text style={styles.infoText}> {item.tipo_contrato}</Text>
               <Text style={styles.sueldo}>
-                💰 ${Number(item.sueldo).toLocaleString()}
+                ${Number(item.sueldo).toLocaleString()}
               </Text>
             </View>
             <TouchableOpacity

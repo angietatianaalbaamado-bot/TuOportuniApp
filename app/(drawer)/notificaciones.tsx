@@ -85,7 +85,7 @@ export default function Notificaciones() {
         contentContainerStyle={{ padding: 16 }}
         ListEmptyComponent={
           <View style={styles.emptyBox}>
-            <Text style={styles.emptyIcon}>🔔</Text>
+            <Text style={styles.emptyIcon}></Text>
             <Text style={styles.empty}>No tienes notificaciones</Text>
             <Text style={styles.emptyHint}>
               Te avisaremos cuando haya novedades
@@ -99,7 +99,7 @@ export default function Notificaciones() {
             activeOpacity={0.8}
           >
             <View style={styles.cardLeft}>
-              <Text style={styles.icono}>{item.leida ? "🔔" : "🔴"}</Text>
+              <Text style={styles.icono}>{item.leida ? "" : ""}</Text>
             </View>
             <View style={styles.cardContent}>
               <Text

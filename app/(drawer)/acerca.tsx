@@ -66,7 +66,7 @@ export default function Acerca() {
 
       {/* Funcionalidades */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>✨ Funcionalidades</Text>
+        <Text style={styles.sectionTitle}> Funcionalidades</Text>
         {[
           "👤 Registro e inicio de sesión",
           "🔍 Búsqueda de vacantes con filtros",
@@ -85,7 +85,7 @@ export default function Acerca() {
 
       {/* Autora */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>👩‍💻 Autora</Text>
+        <Text style={styles.sectionTitle}> Autora</Text>
         <View style={styles.autora}>
           <View style={styles.autorAvatar}>
             <Text style={styles.autorAvatarText}>AA</Text>
@@ -105,7 +105,7 @@ export default function Acerca() {
             Linking.openURL("https://github.com/angietatianaalbaamado-bot")
           }
         >
-          <Text style={styles.btnGitHubText}>🐙 Ver en GitHub</Text>
+          <Text style={styles.btnGitHubText}> Ver en GitHub</Text>
         </TouchableOpacity>
       </View>
 

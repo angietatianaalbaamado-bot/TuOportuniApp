@@ -76,7 +76,7 @@ export default function Postulaciones() {
         contentContainerStyle={{ padding: 16 }}
         ListEmptyComponent={
           <View style={styles.emptyBox}>
-            <Text style={styles.emptyIcon}>📭</Text>
+            <Text style={styles.emptyIcon}></Text>
             <Text style={styles.empty}>No tienes postulaciones aún</Text>
             <Text style={styles.emptyHint}>
               Explora las vacantes y postúlate
@@ -96,12 +96,12 @@ export default function Postulaciones() {
                 </View>
               </View>
               <View style={styles.info}>
-                <Text style={styles.infoText}>📍 {item.ubicacion}</Text>
+                <Text style={styles.infoText}> {item.ubicacion}</Text>
                 <Text style={styles.infoText}>
-                  💰 ${Number(item.sueldo).toLocaleString()}
+                  ${Number(item.sueldo).toLocaleString()}
                 </Text>
                 <Text style={styles.infoText}>
-                  📅 {new Date(item.fecha_postulacion).toLocaleDateString()}
+                  {new Date(item.fecha_postulacion).toLocaleDateString()}
                 </Text>
               </View>
             </View>

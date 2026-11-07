@@ -123,21 +123,21 @@ export default function DetalleVacante() {
 
         <View style={styles.card}>
           <View style={styles.infoRow}>
-            <Text style={styles.infoIcon}>📍</Text>
+            <Text style={styles.infoIcon}></Text>
             <View>
               <Text style={styles.infoLabel}>Ubicacion</Text>
               <Text style={styles.infoValue}>{vacante.ubicacion}</Text>
             </View>
           </View>
           <View style={styles.infoRow}>
-            <Text style={styles.infoIcon}>📋</Text>
+            <Text style={styles.infoIcon}></Text>
             <View>
               <Text style={styles.infoLabel}>Tipo de contrato</Text>
               <Text style={styles.infoValue}>{vacante.tipo_contrato}</Text>
             </View>
           </View>
           <View style={styles.infoRow}>
-            <Text style={styles.infoIcon}>💰</Text>
+            <Text style={styles.infoIcon}></Text>
             <View>
               <Text style={styles.infoLabel}>Salario</Text>
               <Text style={styles.sueldo}>
@@ -146,7 +146,7 @@ export default function DetalleVacante() {
             </View>
           </View>
           <View style={styles.infoRow}>
-            <Text style={styles.infoIcon}>📅</Text>
+            <Text style={styles.infoIcon}></Text>
             <View>
               <Text style={styles.infoLabel}>Publicada</Text>
               <Text style={styles.infoValue}>
@@ -176,11 +176,11 @@ export default function DetalleVacante() {
           {postulando ? (
             <ActivityIndicator color="#fff" />
           ) : (
-            <Text style={styles.btnPostularText}>Postularme ahora 🚀</Text>
+            <Text style={styles.btnPostularText}>Postularme ahora </Text>
           )}
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnChat} onPress={iniciarChat}>
-          <Text style={styles.btnChatText}>💬 Chatear con la empresa</Text>
+          <Text style={styles.btnChatText}> Chatear con la empresa</Text>
         </TouchableOpacity>
       </View>
     </View>

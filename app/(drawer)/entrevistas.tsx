@@ -67,7 +67,7 @@ export default function Entrevistas() {
         contentContainerStyle={{ padding: 16 }}
         ListEmptyComponent={
           <View style={styles.emptyBox}>
-            <Text style={styles.emptyIcon}>📅</Text>
+            <Text style={styles.emptyIcon}></Text>
             <Text style={styles.empty}>No tienes entrevistas programadas</Text>
             <Text style={styles.emptyHint}>
               Postulate a vacantes para obtener entrevistas
@@ -91,17 +91,17 @@ export default function Entrevistas() {
             </View>
 
             <View style={styles.infoRow}>
-              <Text style={styles.infoIcon}>📅</Text>
+              <Text style={styles.infoIcon}></Text>
               <Text style={styles.infoText}>
                 {new Date(item.fecha).toLocaleDateString()}
               </Text>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.infoIcon}>🕐</Text>
+              <Text style={styles.infoIcon}></Text>
               <Text style={styles.infoText}>{item.hora}</Text>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.infoIcon}>📍</Text>
+              <Text style={styles.infoIcon}></Text>
               <Text style={styles.infoText}>
                 {item.ubicacion || "Sin ubicacion"}
               </Text>

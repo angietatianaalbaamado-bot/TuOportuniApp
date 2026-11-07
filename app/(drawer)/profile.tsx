@@ -67,7 +67,7 @@ export default function Profile() {
         <Text style={styles.correo}>{usuario?.correo}</Text>
         <View style={styles.rolBadge}>
           <Text style={styles.rolText}>
-            {usuario?.rol === "candidato" ? "👤 Candidato" : "🏢 Empresa"}
+            {usuario?.rol === "candidato" ? " Candidato" : " Empresa"}
           </Text>
         </View>
       </View>
@@ -94,13 +94,13 @@ export default function Profile() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Informacion profesional</Text>
         <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>💼 Profesion</Text>
+          <Text style={styles.infoLabel}> Profesion</Text>
           <Text style={styles.infoValue}>
             {perfil?.profesion || "Sin especificar"}
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>⭐ Experiencia</Text>
+          <Text style={styles.infoLabel}> Experiencia</Text>
           <Text style={styles.infoValue}>
             {perfil?.experiencia || "Sin especificar"}
           </Text>
@@ -120,7 +120,7 @@ export default function Profile() {
           style={styles.btnAccion}
           onPress={() => router.push("/(drawer)/postulaciones" as any)}
         >
-          <Text style={styles.btnAccionIcon}>📄</Text>
+          <Text style={styles.btnAccionIcon}></Text>
           <Text style={styles.btnAccionText}>Ver mis postulaciones</Text>
           <Text style={styles.btnAccionArrow}>→</Text>
         </TouchableOpacity>
@@ -128,7 +128,7 @@ export default function Profile() {
           style={styles.btnAccion}
           onPress={() => router.push("/(drawer)/editarperfil" as any)}
         >
-          <Text style={styles.btnAccionIcon}>✏️</Text>
+          <Text style={styles.btnAccionIcon}></Text>
           <Text style={styles.btnAccionText}>Editar perfil</Text>
           <Text style={styles.btnAccionArrow}>→</Text>
         </TouchableOpacity>
@@ -136,7 +136,7 @@ export default function Profile() {
           style={styles.btnAccion}
           onPress={() => router.push("/(drawer)/entrevistas" as any)}
         >
-          <Text style={styles.btnAccionIcon}>📅</Text>
+          <Text style={styles.btnAccionIcon}></Text>
           <Text style={styles.btnAccionText}>Mis entrevistas</Text>
           <Text style={styles.btnAccionArrow}>→</Text>
         </TouchableOpacity>
@@ -144,7 +144,7 @@ export default function Profile() {
           style={styles.btnAccion}
           onPress={() => router.push("/(drawer)/notificaciones" as any)}
         >
-          <Text style={styles.btnAccionIcon}>🔔</Text>
+          <Text style={styles.btnAccionIcon}></Text>
           <Text style={styles.btnAccionText}>Notificaciones</Text>
           <Text style={styles.btnAccionArrow}>→</Text>
         </TouchableOpacity>
@@ -152,7 +152,7 @@ export default function Profile() {
 
       {/* Cerrar sesion */}
       <TouchableOpacity style={styles.btnCerrar} onPress={cerrarSesion}>
-        <Text style={styles.btnCerrarText}>🚪 Cerrar sesion</Text>
+        <Text style={styles.btnCerrarText}> Cerrar sesion</Text>
       </TouchableOpacity>
     </ScrollView>
   );

@@ -17,10 +17,10 @@ const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
 // Colores e ícono de la insignia según el estado de la postulación
 const estadoConfig: any = {
-  pendiente: { bg: "#fef9c3", text: "#854d0e", icon: "⏳" },
-  aceptado: { bg: "#dcfce7", text: "#166534", icon: "✅" },
-  rechazado: { bg: "#fee2e2", text: "#991b1b", icon: "❌" },
-  en_revision: { bg: "#dbeafe", text: "#1e40af", icon: "🔍" },
+  pendiente: { bg: "#fef9c3", text: "#854d0e", icon: "" },
+  aceptado: { bg: "#dcfce7", text: "#166534", icon: "" },
+  rechazado: { bg: "#fee2e2", text: "#991b1b", icon: "" },
+  en_revision: { bg: "#dbeafe", text: "#1e40af", icon: "" },
 };
 
 export default function Postulaciones() {
@@ -153,13 +153,13 @@ export default function Postulaciones() {
               <View style={styles.infoRow}>
                 <Text style={styles.infoText}>📍 {item.ubicacion}</Text>
                 <Text style={styles.infoText}>
-                  💰 ${Number(item.sueldo).toLocaleString()}
+                  ${Number(item.sueldo).toLocaleString()}
                 </Text>
               </View>
 
               <View style={styles.cardFooter}>
                 <Text style={styles.fecha}>
-                  📅 Postulado el{" "}
+                  Postulado el{" "}
                   {new Date(item.fecha_postulacion).toLocaleDateString()}
                 </Text>
                 {/* Abre el detalle de la vacante a la que se postuló */}

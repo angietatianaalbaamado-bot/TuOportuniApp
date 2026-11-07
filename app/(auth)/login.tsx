@@ -60,7 +60,7 @@ export default function LoginScreen() {
             resizeMode="contain"
           />
           <Text style={styles.appName}>TuOportuniApp</Text>
-          <Text style={styles.tagline}>Bienvenido de vuelta 👋</Text>
+          <Text style={styles.tagline}>Bienvenido de vuelta </Text>
         </View>
 
         {/* Formulario */}
@@ -69,7 +69,7 @@ export default function LoginScreen() {
           <Text style={styles.subtitulo}>Ingresa tus datos para continuar</Text>
 
           <View style={styles.inputWrapper}>
-            <Text style={styles.inputLabel}>📧 Correo electronico</Text>
+            <Text style={styles.inputLabel}> Correo electronico</Text>
             <TextInput
               style={styles.input}
               placeholder="tucorreo@ejemplo.com"
@@ -82,7 +82,7 @@ export default function LoginScreen() {
           </View>
 
           <View style={styles.inputWrapper}>
-            <Text style={styles.inputLabel}>🔒 Contrasena</Text>
+            <Text style={styles.inputLabel}> Contrasena</Text>
             <View style={styles.inputRow}>
               <TextInput
                 style={[styles.input, { flex: 1, borderWidth: 0 }]}
@@ -96,14 +96,14 @@ export default function LoginScreen() {
                 onPress={() => setShowPass(!showPass)}
                 style={styles.eyeBtn}
               >
-                <Text>{showPass ? "🙈" : "👁️"}</Text>
+                <Text>{showPass ? "" : "👁️"}</Text>
               </TouchableOpacity>
             </View>
           </View>
 
           {error ? (
             <View style={styles.errorBox}>
-              <Text style={styles.errorText}>⚠️ {error}</Text>
+              <Text style={styles.errorText}> {error}</Text>
             </View>
           ) : null}
 
@@ -131,7 +131,7 @@ export default function LoginScreen() {
             onPress={() => router.push("/(auth)/register")}
             activeOpacity={0.8}
           >
-            <Text style={styles.btnRegistroText}>✨ Crear cuenta gratis</Text>
+            <Text style={styles.btnRegistroText}> Crear cuenta gratis</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => router.back()}>

@@ -61,7 +61,7 @@ export default function Settings() {
 
       {/* Notificaciones */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>🔔 Notificaciones</Text>
+        <Text style={styles.sectionTitle}> Notificaciones</Text>
         <View style={styles.item}>
           <View>
             <Text style={styles.itemTitle}>Notificaciones push</Text>
@@ -92,7 +92,7 @@ export default function Settings() {
 
       {/* Apariencia */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>🎨 Apariencia</Text>
+        <Text style={styles.sectionTitle}> Apariencia</Text>
         <View style={styles.item}>
           <View>
             <Text style={styles.itemTitle}>Modo oscuro</Text>
@@ -109,7 +109,7 @@ export default function Settings() {
 
       {/* Acerca de */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>ℹ️ Acerca de</Text>
+        <Text style={styles.sectionTitle}>ℹ Acerca de</Text>
         <TouchableOpacity style={styles.item}>
           <View>
             <Text style={styles.itemTitle}>Version</Text>
@@ -147,12 +147,12 @@ export default function Settings() {
 
       {/* Cuenta */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>👤 Cuenta</Text>
+        <Text style={styles.sectionTitle}> Cuenta</Text>
         <TouchableOpacity style={styles.item} onPress={cerrarSesion}>
-          <Text style={styles.itemTitleDanger}>🚪 Cerrar sesion</Text>
+          <Text style={styles.itemTitleDanger}> Cerrar sesion</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.item} onPress={eliminarCuenta}>
-          <Text style={styles.itemTitleDanger}>🗑️ Eliminar cuenta</Text>
+          <Text style={styles.itemTitleDanger}> Eliminar cuenta</Text>
         </TouchableOpacity>
       </View>
 

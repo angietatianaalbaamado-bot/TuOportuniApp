@@ -63,7 +63,7 @@ export default function RegisterScreen() {
             resizeMode="contain"
           />
           <Text style={styles.appName}>TuOportuniApp</Text>
-          <Text style={styles.tagline}>Crea tu cuenta y empieza hoy ✨</Text>
+          <Text style={styles.tagline}>Crea tu cuenta y empieza hoy </Text>
         </View>
 
         {/* Formulario */}
@@ -84,7 +84,7 @@ export default function RegisterScreen() {
               onPress={() => setRol("candidato")}
               activeOpacity={0.8}
             >
-              <Text style={styles.roleIcon}>👤</Text>
+              <Text style={styles.roleIcon}></Text>
               <Text
                 style={[
                   styles.roleBtnText,
@@ -167,7 +167,7 @@ export default function RegisterScreen() {
           </View>
 
           <View style={styles.inputWrapper}>
-            <Text style={styles.inputLabel}>🔒 Contrasena</Text>
+            <Text style={styles.inputLabel}>Contrasena</Text>
             <View style={styles.inputRow}>
               <TextInput
                 style={[styles.input, { flex: 1, borderWidth: 0 }]}
@@ -181,14 +181,14 @@ export default function RegisterScreen() {
                 onPress={() => setShowPass(!showPass)}
                 style={styles.eyeBtn}
               >
-                <Text>{showPass ? "🙈" : "👁️"}</Text>
+                <Text>{showPass ? "" : ""}</Text>
               </TouchableOpacity>
             </View>
           </View>
 
           {error ? (
             <View style={styles.errorBox}>
-              <Text style={styles.errorText}>⚠️ {error}</Text>
+              <Text style={styles.errorText}> {error}</Text>
             </View>
           ) : null}
 

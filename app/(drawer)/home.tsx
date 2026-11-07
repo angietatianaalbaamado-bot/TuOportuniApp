@@ -33,7 +33,7 @@ const CONTRATOS = [
 const MODALIDADES = ["Todas", "presencial", "remoto", "hibrido"];
 
 // Ícono que acompaña a cada modalidad
-const modalidadIcon: any = { presencial: "🏢", remoto: "🏠", hibrido: "🔄" };
+const modalidadIcon: any = { presencial: "", remoto: "", hibrido: "" };
 
 export default function Home() {
   const router = useRouter();
@@ -260,10 +260,10 @@ export default function Home() {
               {item.descripcion}
             </Text>
             <View style={styles.info}>
-              <Text style={styles.infoText}>📍 {item.ubicacion}</Text>
-              <Text style={styles.infoText}>📋 {item.tipo_contrato}</Text>
+              <Text style={styles.infoText}> {item.ubicacion}</Text>
+              <Text style={styles.infoText}> {item.tipo_contrato}</Text>
               <Text style={styles.infoText}>
-                {modalidadIcon[item.modalidad] || "🏢"}{" "}
+                {modalidadIcon[item.modalidad] || ""}{" "}
                 {item.modalidad || "presencial"}
               </Text>
               <Text style={styles.sueldo}>

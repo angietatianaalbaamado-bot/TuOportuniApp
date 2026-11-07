@@ -123,7 +123,7 @@ export default function EditarPerfil() {
             <Text style={styles.cardTitle}>Informacion profesional</Text>
 
             <View style={styles.inputWrapper}>
-              <Text style={styles.inputLabel}>💼 Profesion</Text>
+              <Text style={styles.inputLabel}> Profesion</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Ej: Desarrollador de Software"
@@ -134,7 +134,7 @@ export default function EditarPerfil() {
             </View>
 
             <View style={styles.inputWrapper}>
-              <Text style={styles.inputLabel}>⭐ Experiencia</Text>
+              <Text style={styles.inputLabel}> Experiencia</Text>
               <TextInput
                 style={[styles.input, styles.inputMultiline]}
                 placeholder="Describe tu experiencia laboral..."
@@ -165,7 +165,7 @@ export default function EditarPerfil() {
 
           {/* Hoja de vida */}
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>📄 Hoja de vida</Text>
+            <Text style={styles.cardTitle}> Hoja de vida</Text>
             <Text style={styles.pdfHint}>
               Sube tu hoja de vida en formato PDF
             </Text>
@@ -182,7 +182,7 @@ export default function EditarPerfil() {
               activeOpacity={0.8}
             >
               <Text style={styles.btnPDFText}>
-                {hojaVida ? "🔄 Cambiar PDF" : "📤 Seleccionar PDF"}
+                {hojaVida ? "🔄 Cambiar PDF" : " Seleccionar PDF"}
               </Text>
             </TouchableOpacity>
           </View>
@@ -196,7 +196,7 @@ export default function EditarPerfil() {
             {guardando ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.btnGuardarText}>Guardar cambios ✅</Text>
+              <Text style={styles.btnGuardarText}>Guardar cambios </Text>
             )}
           </TouchableOpacity>
         </ScrollView>

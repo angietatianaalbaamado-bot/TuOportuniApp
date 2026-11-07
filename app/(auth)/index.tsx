@@ -94,7 +94,7 @@ export default function AuthIndex() {
       >
         {/* Contenedor que limita el ancho del contenido en pantallas grandes */}
         <View style={esAncha && styles.contenidoAncho}>
-          <Text style={styles.titulo}>Encuentra tu próximo empleo 💼</Text>
+          <Text style={styles.titulo}>Encuentra tu próximo empleo </Text>
           <Text style={styles.subtitulo}>
             Miles de vacantes verificadas te esperan. Postúlate fácil, rápido y
             seguro.
@@ -106,7 +106,7 @@ export default function AuthIndex() {
             onPress={() => router.push("/(auth)/login")}
             activeOpacity={0.8}
           >
-            <Text style={styles.btnPrimarioText}>🔑 Iniciar sesión</Text>
+            <Text style={styles.btnPrimarioText}>Iniciar sesión</Text>
           </TouchableOpacity>
 
           {/* Botón secundario: lleva al registro */}
@@ -115,7 +115,7 @@ export default function AuthIndex() {
             onPress={() => router.push("/(auth)/register")}
             activeOpacity={0.8}
           >
-            <Text style={styles.btnSecundarioText}>✨ Crear cuenta gratis</Text>
+            <Text style={styles.btnSecundarioText}> Crear cuenta gratis</Text>
           </TouchableOpacity>
 
           <Text style={styles.footer}>
