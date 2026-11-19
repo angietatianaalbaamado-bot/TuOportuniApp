@@ -66,7 +66,7 @@ export default function Notificaciones() {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.btnBack}>
-          <Text style={styles.btnBackText}>← Volver</Text>
+          <Text style={styles.btnBackText}> Volver</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Notificaciones</Text>
         <View style={styles.badge}>
@@ -108,7 +108,7 @@ export default function Notificaciones() {
                 {item.mensaje}
               </Text>
               <Text style={styles.fecha}>
-                {new Date(item.fecha).toLocaleDateString()} ·{" "}
+                {new Date(item.fecha).toLocaleDateString()} {" "}
                 {new Date(item.fecha).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",

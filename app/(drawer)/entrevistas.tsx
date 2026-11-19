@@ -109,7 +109,7 @@ export default function Entrevistas() {
 
             {item.enlace ? (
               <View style={styles.enlaceBox}>
-                <Text style={styles.enlaceLabel}>🔗 Enlace de reunion:</Text>
+                <Text style={styles.enlaceLabel}> Enlace de reunion:</Text>
                 <Text style={styles.enlace}>{item.enlace}</Text>
               </View>
             ) : null}

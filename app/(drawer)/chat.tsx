@@ -59,7 +59,7 @@ export default function Chat() {
     if (!usuario?.rol) {
       Alert.alert(
         "Error",
-        "No se encontró el rol del usuario. Intenta iniciar sesión de nuevo.",
+        "No se encontro el rol del usuario. Intenta iniciar sesion de nuevo.",
       );
       return;
     }
@@ -130,7 +130,7 @@ export default function Chat() {
         }
         ListEmptyComponent={
           <View style={styles.emptyBox}>
-            <Text style={styles.emptyIcon}>💬</Text>
+            <Text style={styles.emptyIcon}></Text>
             <Text style={styles.empty}>No hay mensajes aun</Text>
             <Text style={styles.emptyHint}>Se el primero en escribir</Text>
           </View>
@@ -176,7 +176,7 @@ export default function Chat() {
           onPress={enviarMensaje}
           disabled={enviando}
         >
-          <Text style={styles.btnEnviarText}>{enviando ? "..." : "➤"}</Text>
+          <Text style={styles.btnEnviarText}>{enviando ? "..." : ">"}</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

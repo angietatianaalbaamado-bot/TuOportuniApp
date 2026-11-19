@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 
-// Ancho mínimo (en píxeles) para mostrar el diseño de dos columnas
+// Ancho minimo (en pixeles) para mostrar el diseno de dos columnas
 const ANCHO_DOS_COLUMNAS = 768;
 
 export default function AuthIndex() {
@@ -19,7 +19,7 @@ export default function AuthIndex() {
   const { width } = useWindowDimensions();
   const esAncha = width >= ANCHO_DOS_COLUMNAS;
 
-  // Valores de animación: aparición gradual y desplazamiento de entrada
+  // Valores de animacion: aparicion gradual y desplazamiento de entrada
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;
 
@@ -94,22 +94,22 @@ export default function AuthIndex() {
       >
         {/* Contenedor que limita el ancho del contenido en pantallas grandes */}
         <View style={esAncha && styles.contenidoAncho}>
-          <Text style={styles.titulo}>Encuentra tu próximo empleo </Text>
+          <Text style={styles.titulo}>Encuentra tu proximo empleo </Text>
           <Text style={styles.subtitulo}>
-            Miles de vacantes verificadas te esperan. Postúlate fácil, rápido y
+            Miles de vacantes verificadas te esperan. Postulate facil, rapido y
             seguro.
           </Text>
 
-          {/* Botón principal: lleva a la pantalla de inicio de sesión */}
+          {/* Boton principal: lleva a la pantalla de inicio de sesion */}
           <TouchableOpacity
             style={styles.btnPrimario}
             onPress={() => router.push("/(auth)/login")}
             activeOpacity={0.8}
           >
-            <Text style={styles.btnPrimarioText}>Iniciar sesión</Text>
+            <Text style={styles.btnPrimarioText}>Iniciar sesion</Text>
           </TouchableOpacity>
 
-          {/* Botón secundario: lleva al registro */}
+          {/* Boton secundario: lleva al registro */}
           <TouchableOpacity
             style={styles.btnSecundario}
             onPress={() => router.push("/(auth)/register")}
@@ -119,7 +119,7 @@ export default function AuthIndex() {
           </TouchableOpacity>
 
           <Text style={styles.footer}>
-            © 2025 TuOportuniApp · Angie Tatiana Alba Amado
+             2025 TuOportuniApp  Angie Tatiana Alba Amado
           </Text>
         </View>
       </Animated.View>

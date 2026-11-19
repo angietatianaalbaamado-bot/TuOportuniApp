@@ -15,7 +15,7 @@ import { getData } from "../../src/services/storageService";
 // URL base del backend, definida en las variables de entorno de Expo
 const API_URL = process.env.EXPO_PUBLIC_API_URL;
 
-// Colores e ícono de la insignia según el estado de la postulación
+// Colores e icono de la insignia segun el estado de la postulacion
 const estadoConfig: any = {
   pendiente: { bg: "#fef9c3", text: "#854d0e", icon: "" },
   aceptado: { bg: "#dcfce7", text: "#166534", icon: "" },
@@ -119,10 +119,10 @@ export default function Postulaciones() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         contentContainerStyle={{ padding: 16 }}
-        // Vista que se muestra cuando el usuario aún no se ha postulado
+        // Vista que se muestra cuando el usuario aun no se ha postulado
         ListEmptyComponent={
           <View style={styles.emptyBox}>
-            <Text style={styles.emptyIcon}>📭</Text>
+            <Text style={styles.emptyIcon}></Text>
             <Text style={styles.empty}>No tienes postulaciones aun</Text>
             <Text style={styles.emptyHint}>
               Explora las vacantes y postulate
@@ -131,13 +131,13 @@ export default function Postulaciones() {
               style={styles.btnExplorar}
               onPress={() => router.push("/(drawer)/home" as any)}
             >
-              <Text style={styles.btnExplorarText}>Explorar vacantes →</Text>
+              <Text style={styles.btnExplorarText}>Explorar vacantes </Text>
             </TouchableOpacity>
           </View>
         }
-        // Tarjeta de cada postulación
+        // Tarjeta de cada postulacion
         renderItem={({ item }: any) => {
-          // Si el estado no está en la tabla, se trata como pendiente
+          // Si el estado no esta en la tabla, se trata como pendiente
           const config = estadoConfig[item.estado] || estadoConfig.pendiente;
           return (
             <View style={styles.card}>
@@ -151,7 +151,7 @@ export default function Postulaciones() {
               </View>
 
               <View style={styles.infoRow}>
-                <Text style={styles.infoText}>📍 {item.ubicacion}</Text>
+                <Text style={styles.infoText}> {item.ubicacion}</Text>
                 <Text style={styles.infoText}>
                   ${Number(item.sueldo).toLocaleString()}
                 </Text>
@@ -162,7 +162,7 @@ export default function Postulaciones() {
                   Postulado el{" "}
                   {new Date(item.fecha_postulacion).toLocaleDateString()}
                 </Text>
-                {/* Abre el detalle de la vacante a la que se postuló */}
+                {/* Abre el detalle de la vacante a la que se postulo */}
                 <TouchableOpacity
                   style={styles.btnVer}
                   onPress={() =>
@@ -172,7 +172,7 @@ export default function Postulaciones() {
                     } as any)
                   }
                 >
-                  <Text style={styles.btnVerText}>Ver vacante →</Text>
+                  <Text style={styles.btnVerText}>Ver vacante </Text>
                 </TouchableOpacity>
               </View>
             </View>

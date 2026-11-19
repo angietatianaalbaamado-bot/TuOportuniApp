@@ -106,7 +106,7 @@ export default function Profile() {
           </Text>
         </View>
         <View style={styles.infoRow}>
-          <Text style={styles.infoLabel}>🛠 Habilidades</Text>
+          <Text style={styles.infoLabel}> Habilidades</Text>
           <Text style={styles.infoValue}>
             {perfil?.habilidades || "Sin especificar"}
           </Text>
@@ -122,7 +122,7 @@ export default function Profile() {
         >
           <Text style={styles.btnAccionIcon}></Text>
           <Text style={styles.btnAccionText}>Ver mis postulaciones</Text>
-          <Text style={styles.btnAccionArrow}>→</Text>
+          <Text style={styles.btnAccionArrow}></Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnAccion}
@@ -130,7 +130,7 @@ export default function Profile() {
         >
           <Text style={styles.btnAccionIcon}></Text>
           <Text style={styles.btnAccionText}>Editar perfil</Text>
-          <Text style={styles.btnAccionArrow}>→</Text>
+          <Text style={styles.btnAccionArrow}></Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnAccion}
@@ -138,7 +138,7 @@ export default function Profile() {
         >
           <Text style={styles.btnAccionIcon}></Text>
           <Text style={styles.btnAccionText}>Mis entrevistas</Text>
-          <Text style={styles.btnAccionArrow}>→</Text>
+          <Text style={styles.btnAccionArrow}></Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnAccion}
@@ -146,7 +146,7 @@ export default function Profile() {
         >
           <Text style={styles.btnAccionIcon}></Text>
           <Text style={styles.btnAccionText}>Notificaciones</Text>
-          <Text style={styles.btnAccionArrow}>→</Text>
+          <Text style={styles.btnAccionArrow}></Text>
         </TouchableOpacity>
       </View>
 

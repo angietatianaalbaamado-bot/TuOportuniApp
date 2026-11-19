@@ -96,7 +96,7 @@ export default function LoginScreen() {
                 onPress={() => setShowPass(!showPass)}
                 style={styles.eyeBtn}
               >
-                <Text>{showPass ? "" : "👁️"}</Text>
+                <Text>{showPass ? "" : ""}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -116,7 +116,7 @@ export default function LoginScreen() {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Ingresar →</Text>
+              <Text style={styles.buttonText}>Ingresar </Text>
             )}
           </TouchableOpacity>
 
@@ -135,7 +135,7 @@ export default function LoginScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => router.back()}>
-            <Text style={styles.link}>← Volver al inicio</Text>
+            <Text style={styles.link}> Volver al inicio</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

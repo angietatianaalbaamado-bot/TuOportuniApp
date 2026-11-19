@@ -22,30 +22,30 @@ export default function Acerca() {
           resizeMode="contain"
         />
         <Text style={styles.appName}>TuOportuniApp</Text>
-        <Text style={styles.version}>Versión 1.0.0</Text>
+        <Text style={styles.version}>Version 1.0.0</Text>
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>Proyecto Académico SENA</Text>
+          <Text style={styles.badgeText}>Proyecto Academico SENA</Text>
         </View>
       </View>
 
-      {/* Descripción */}
+      {/* Descripcion */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>📱 Sobre la App</Text>
+        <Text style={styles.sectionTitle}> Sobre la App</Text>
         <Text style={styles.texto}>
-          TuOportuniApp es una plataforma móvil desarrollada para optimizar y
-          modernizar los procesos de búsqueda de empleo y selección de personal
+          TuOportuniApp es una plataforma movil desarrollada para optimizar y
+          modernizar los procesos de busqueda de empleo y seleccion de personal
           en Colombia.
         </Text>
         <Text style={styles.texto}>
           Conectamos directamente a candidatos y empresas, permitiendo gestionar
-          vacantes, postulaciones, entrevistas y comunicación en tiempo real
+          vacantes, postulaciones, entrevistas y comunicacion en tiempo real
           desde un solo lugar.
         </Text>
       </View>
 
-      {/* Tecnologías */}
+      {/* Tecnologias */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>🛠 Tecnologías</Text>
+        <Text style={styles.sectionTitle}> Tecnologias</Text>
         <View style={styles.techs}>
           {[
             "React Native",
@@ -68,14 +68,14 @@ export default function Acerca() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}> Funcionalidades</Text>
         {[
-          "👤 Registro e inicio de sesión",
-          "🔍 Búsqueda de vacantes con filtros",
-          "📄 Postulación a ofertas laborales",
-          "💬 Chat directo con empresas",
-          "📅 Agenda de entrevistas",
-          "🔔 Notificaciones en tiempo real",
-          "✏️ Edición de perfil profesional",
-          "📎 Carga de hoja de vida PDF",
+          "Registro e inicio de sesion",
+          "Busqueda de vacantes con filtros",
+          "Postulacion a ofertas laborales",
+          "Chat directo con empresas",
+          "Agenda de entrevistas",
+          "Notificaciones en tiempo real",
+          "Edicion de perfil profesional",
+          "Carga de hoja de vida PDF",
         ].map((item) => (
           <Text key={item} style={styles.feature}>
             {item}
@@ -93,9 +93,9 @@ export default function Acerca() {
           <View>
             <Text style={styles.autorNombre}>Angie Tatiana Alba Amado</Text>
             <Text style={styles.autorCargo}>
-              Tecnóloga en Análisis y Desarrollo de Software
+              Tecnologa en Analisis y Desarrollo de Software
             </Text>
-            <Text style={styles.autorSena}>SENA - Colombia 🇨🇴</Text>
+            <Text style={styles.autorSena}>SENA - Colombia co</Text>
           </View>
         </View>
 
@@ -111,9 +111,9 @@ export default function Acerca() {
 
       {/* Footer */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>© 2025 TuOportuniApp</Text>
+        <Text style={styles.footerText}>0 2025 TuOportuniApp</Text>
         <Text style={styles.footerText}>
-          Proyecto de carácter académico y educativo
+          Proyecto de caracter academico y educativo
         </Text>
       </View>
     </ScrollView>

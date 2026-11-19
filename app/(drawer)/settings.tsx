@@ -109,13 +109,13 @@ export default function Settings() {
 
       {/* Acerca de */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>ℹ Acerca de</Text>
+        <Text style={styles.sectionTitle}> Acerca de</Text>
         <TouchableOpacity style={styles.item}>
           <View>
             <Text style={styles.itemTitle}>Version</Text>
             <Text style={styles.itemDesc}>1.0.0</Text>
           </View>
-          <Text style={styles.arrow}>→</Text>
+          <Text style={styles.arrow}></Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.item}
@@ -125,7 +125,7 @@ export default function Settings() {
             <Text style={styles.itemTitle}>Terminos y condiciones</Text>
             <Text style={styles.itemDesc}>Lee nuestros terminos</Text>
           </View>
-          <Text style={styles.arrow}>→</Text>
+          <Text style={styles.arrow}></Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.item}
@@ -135,12 +135,12 @@ export default function Settings() {
             <Text style={styles.itemTitle}>Politica de privacidad</Text>
             <Text style={styles.itemDesc}>Como usamos tus datos</Text>
           </View>
-          <Text style={styles.arrow}>→</Text>
+          <Text style={styles.arrow}></Text>
         </TouchableOpacity>
         <View style={styles.item}>
           <View>
             <Text style={styles.itemTitle}>Desarrolladora</Text>
-            <Text style={styles.itemDesc}>Angie Tatiana Alba Amado · SENA</Text>
+            <Text style={styles.itemDesc}>Angie Tatiana Alba Amado SENA</Text>
           </View>
         </View>
       </View>
@@ -157,7 +157,7 @@ export default function Settings() {
       </View>
 
       <Text style={styles.footer}>
-        © 2025 TuOportuniApp · Todos los derechos reservados
+         2025 TuOportuniApp  Todos los derechos reservados
       </Text>
     </ScrollView>
   );

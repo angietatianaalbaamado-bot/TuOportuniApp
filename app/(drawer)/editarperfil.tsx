@@ -148,7 +148,7 @@ export default function EditarPerfil() {
             </View>
 
             <View style={styles.inputWrapper}>
-              <Text style={styles.inputLabel}>🛠 Habilidades</Text>
+              <Text style={styles.inputLabel}> Habilidades</Text>
               <TextInput
                 style={[styles.input, styles.inputMultiline]}
                 placeholder="Ej: React Native, Node.js, PostgreSQL..."
@@ -172,7 +172,7 @@ export default function EditarPerfil() {
 
             {hojaVida && (
               <View style={styles.pdfSeleccionado}>
-                <Text style={styles.pdfNombre}>📎 {hojaVida.name}</Text>
+                <Text style={styles.pdfNombre}> {hojaVida.name}</Text>
               </View>
             )}
 
@@ -182,7 +182,7 @@ export default function EditarPerfil() {
               activeOpacity={0.8}
             >
               <Text style={styles.btnPDFText}>
-                {hojaVida ? "🔄 Cambiar PDF" : " Seleccionar PDF"}
+                {hojaVida ? " Cambiar PDF" : " Seleccionar PDF"}
               </Text>
             </TouchableOpacity>
           </View>

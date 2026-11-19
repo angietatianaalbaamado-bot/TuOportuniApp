@@ -110,7 +110,7 @@ export default function RegisterScreen() {
               onPress={() => setRol("empresa")}
               activeOpacity={0.8}
             >
-              <Text style={styles.roleIcon}>🏢</Text>
+              <Text style={styles.roleIcon}></Text>
               <Text
                 style={[
                   styles.roleBtnText,
@@ -132,7 +132,7 @@ export default function RegisterScreen() {
 
           <View style={styles.row}>
             <View style={[styles.inputWrapper, { flex: 1 }]}>
-              <Text style={styles.inputLabel}>👤 Nombre</Text>
+              <Text style={styles.inputLabel}> Nombre</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Tu nombre"
@@ -142,7 +142,7 @@ export default function RegisterScreen() {
               />
             </View>
             <View style={[styles.inputWrapper, { flex: 1 }]}>
-              <Text style={styles.inputLabel}>👤 Apellido</Text>
+              <Text style={styles.inputLabel}> Apellido</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Tu apellido"
@@ -154,7 +154,7 @@ export default function RegisterScreen() {
           </View>
 
           <View style={styles.inputWrapper}>
-            <Text style={styles.inputLabel}>📧 Correo electronico</Text>
+            <Text style={styles.inputLabel}> Correo electronico</Text>
             <TextInput
               style={styles.input}
               placeholder="tucorreo@ejemplo.com"
@@ -201,7 +201,7 @@ export default function RegisterScreen() {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.buttonText}>Crear cuenta →</Text>
+              <Text style={styles.buttonText}>Crear cuenta </Text>
             )}
           </TouchableOpacity>
 
@@ -209,7 +209,7 @@ export default function RegisterScreen() {
             onPress={() => router.push("/(auth)/login")}
             activeOpacity={0.8}
           >
-            <Text style={styles.link}>¿Ya tienes cuenta? Inicia sesion</Text>
+            <Text style={styles.link}>Ya tienes cuenta? Inicia sesion</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
